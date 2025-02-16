@@ -8,8 +8,8 @@ const darkCodeTheme = require("prism-react-renderer/themes/nightOwl");
 const config = {
   title: "Stable Research",
   tagline: "Explore the Stablecoin World",
-  url: "https://tidal3527.github.io",
-  baseUrl: "/stable-research/",
+  url: "https://stableresearch.xyz",
+  baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
