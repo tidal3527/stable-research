@@ -15,7 +15,7 @@ export default function Newsletter(): JSX.Element {
           </div>
         </div>
         <form
-          action="https://stableresearch.xyz/subscription/form"
+          action="https://docs.google.com/forms/d/e/1FAIpQLScvj3KnefDuNIxx1sUVNmSXd_2inPTEZAt3eZaTawO3E6PfzA/formResponse"
           method="post"
           target="_blank"
           className={styles.form}
