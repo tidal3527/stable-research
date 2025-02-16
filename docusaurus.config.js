@@ -106,7 +106,7 @@ const config = {
         disableSwitch: true,
       },
       navbar: {
-        title: "stable research (beta)",
+        title: "stable research",
         // hideOnScroll: true,
         
         items: [

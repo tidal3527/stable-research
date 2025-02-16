@@ -14,7 +14,7 @@ export default function Contact(): JSX.Element {
               We’re a global team of researchers, analysts, and stablecoin enthusiasts.
             </p>
             <p className="tw-text-xl tw-text-gray-400 tw-mt-4">
-              For questions, inquiries, or collaboration opportunities, contact {" "} 
+              For general questions, business inquiries, or collaboration opportunities, contact {" "} 
               <a href="https://www.linkedin.com/in/dasrahul29/" className="tw-text-emerald-500 tw-font-semibold">Rahul Das</a>, Lead Researcher, at
             </p>
             <p className="tw-text-xl tw-font-semibold tw-text-emerald-500 tw-mt-2">
