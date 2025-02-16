@@ -1,0 +1,97 @@
+---
+slug: /
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Getting Started
+
+## Requirements
+
+- Linux Server (preferably Ubuntu)
+- at least 2GB of RAM
+
+## One-Click Installation
+
+You can install Easypanel using our one-click solution in several cloud providers.
+
+- [Digitalocean](https://marketplace.digitalocean.com/apps/easypanel)
+- [AWS](https://aws.amazon.com/marketplace/pp/prodview-nkiq4lewjosjc)
+- [Vultr](https://www.vultr.com/marketplace/apps/easypanel)
+- [Linode](https://www.linode.com/marketplace/apps/easypanel/easypanel/)
+- [Hostinger](https://www.hostg.xyz/aff_c?offer_id=6&aff_id=169839&url_id=19)
+
+## Manual Installation
+
+Easypanel is powered by Docker, so you need to install it first. Most cloud providers have server images that come with Docker preinstalled.
+
+```shell
+curl -sSL https://get.docker.com | sh
+```
+
+Next, you need to install Easypanel by executing the following command. Make sure you have root (sudo) privileges before running the command.
+
+<Tabs groupId="release">
+<TabItem value="stable" label="Stable" default>
+
+```shell
+docker run --rm -it \
+  -v /etc/easypanel:/etc/easypanel \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  easypanel/easypanel setup
+```
+
+</TabItem>
+<TabItem value="canary" label="Canary">
+
+```shell
+docker run --rm -it \
+  -v /etc/easypanel:/etc/easypanel \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  -e RELEASE_TAG=canary \
+  easypanel/easypanel:canary setup
+```
+
+</TabItem>
+</Tabs>
+
+:::info
+Easypanel will install Docker Swarm and several other tools on your server. You should install it on a fresh server, otherwise, you risk facing unexpected errors.
+:::
+
+:::warning
+Port 80 and 443 must be available and not blocked by your firewall.
+:::
+
+## Updates
+
+The panel will try to update automatically. When there is a new release available, you will see a button in the navigation bar.
+
+If you want to update manually, you can run the following command.
+
+<Tabs groupId="release">
+<TabItem value="stable" label="Stable" default>
+
+```shell
+docker image pull easypanel/easypanel && docker service update easypanel --force
+```
+
+</TabItem>
+<TabItem value="canary" label="Canary">
+
+```shell
+docker image pull easypanel/easypanel:canary && docker service update easypanel --force
+```
+
+</TabItem>
+</Tabs>
+
+## Resetting the Password
+
+```shell
+docker run --rm -it \
+  -v /etc/easypanel:/etc/easypanel \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  easypanel/easypanel reset-password
+```
