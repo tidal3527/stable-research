@@ -7,7 +7,7 @@ const darkCodeTheme = require("prism-react-renderer/themes/nightOwl");
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Stable Research",
-  tagline: "Explore the Stablecoin World",
+  tagline: "Navigating Stablecoins",
   url: "https://stableresearch.xyz",
   baseUrl: "/",
   onBrokenLinks: "throw",
@@ -28,20 +28,20 @@ const config = {
         docs: {
           // sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/easypanel-io/website/tree/main",
+          editUrl: "https://github.com/tidal3527/stable-research",
           breadcrumbs: false,
           sidebarCollapsed: true,
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl: "https://github.com/easypanel-io/website/tree/main",
+          editUrl: "https://github.com/tidal3527/stable-research",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
         gtag: {
-          trackingID: "G-4JL0CD3631",
+          trackingID: "G-PZLYMR849M",
           anonymizeIP: true,
         },
         sitemap: {
@@ -97,7 +97,6 @@ const config = {
       // announcementBar: {
       //   id: "dockerizer",
       //   content:
-      //     '<a href="https://easypanel.io/dockerizer" style="font-weight: bold; text-decoration: none;">🚀 Introducing Dockerizer - The fastest way to dockerize your apps! 🚀</a>',
       //   backgroundColor: "#059669",
       //   textColor: "#fff",
       //   isCloseable: true,
@@ -116,7 +115,7 @@ const config = {
           { to: "/pricing", label: "About", position: "left" },
         
           {
-            to: "https://demo.easypanel.io",
+            to: "https://github.com/tidal3527/stable-research",
             label: "Github",
             position: "left",
           },
