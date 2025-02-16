@@ -1,0 +1,15 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <title>Media</title>
+  <!-- Outer film strip rectangle -->
+  <path d="M4 6 H28 V26 H4 Z" stroke="#059669" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Left perforations -->
+  <path d="M6 8 V10" stroke="#059669" fill="none" stroke-width="1" stroke-linecap="round"/>
+  <path d="M6 14 V16" stroke="#059669" fill="none" stroke-width="1" stroke-linecap="round"/>
+  <path d="M6 20 V22" stroke="#059669" fill="none" stroke-width="1" stroke-linecap="round"/>
+  <!-- Right perforations -->
+  <path d="M26 8 V10" stroke="#059669" fill="none" stroke-width="1" stroke-linecap="round"/>
+  <path d="M26 14 V16" stroke="#059669" fill="none" stroke-width="1" stroke-linecap="round"/>
+  <path d="M26 20 V22" stroke="#059669" fill="none" stroke-width="1" stroke-linecap="round"/>
+  <!-- Play button triangle -->
+  <path d="M12 10 L12 22 L22 16 Z" stroke="#059669" fill="none" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
