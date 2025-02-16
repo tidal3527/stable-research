@@ -1,7 +1,7 @@
 {
   "index_name": "website",
-  "start_urls": ["https://easypanel.io/"],
-  "sitemap_urls": ["https://easypanel.io/sitemap.xml"],
+  "start_urls": ["https://stableresearch.xyz/"],
+  "sitemap_urls": ["https://stableresearch.xyz/sitemap.xml"],
   "sitemap_alternate_links": true,
   "stop_urls": ["/tests"],
   "selectors": {
