@@ -25,15 +25,15 @@ export default function Templates(): JSX.Element {
   return (
     <Layout
       title="Templates"
-      description=" ."
+      description="Easypanel provides templates for applications you know and love."
     >
       <section className="tw-pt-16 tw-pb-32 tw-px-4 lg:tw-px-8">
         <div className="tw-text-center">
           <h2 className="tw-text-4xl lg:tw-text-5xl tw-mt-4 tw-font-extrabold">
-             
+            Easypanel Templates
           </h2>
           <p className="tw-text-xl tw-text-gray-400 tw-mb-4">
-             
+            1-Click Installers for Your Favorite Applications
           </p>
         </div>
         <div className="tw-flex tw-justify-center tw-items-center tw-mb-4">
@@ -58,7 +58,7 @@ export default function Templates(): JSX.Element {
                     require(`@site/docs/05-templates/${template.slug}/assets/${template.logo}`)
                       .default
                   }
-                  alt=" "
+                  alt="Example banner"
                   className="tw-h-12 tw-w-12 tw-block tw-rounded-lg"
                 />
               ) : (
