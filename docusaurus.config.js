@@ -8,13 +8,13 @@ const darkCodeTheme = require("prism-react-renderer/themes/nightOwl");
 const config = {
   title: "Stable Research",
   tagline: "Explore the Stablecoin World",
-  url: "https://stableresearch.xyz",
-  baseUrl: "/",
+  url: "https://tidal3527.github.io",
+  baseUrl: "/stable-research/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "stableresearch-xyz", // Usually your GitHub org/user name.
-  projectName: "website", // Usually your repo name.
+  organizationName: "tidal3527", // Usually your GitHub org/user name.
+  projectName: "stable-research", // Usually your repo name.
   stylesheets: [
     // "https://fonts.googleapis.com/css2?family=Inter:wght@583&display=block",
     // "https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=block",
