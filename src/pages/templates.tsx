@@ -1,5 +1,5 @@
 import Link from "@docusaurus/Link";
-import templates from "@site/docs/05-templates/templates.json";
+import templates from "@site/docs/05-use-cases";
 import Layout from "@theme/Layout";
 import Fuse from "fuse.js";
 import React, { useMemo, useState } from "react";
