@@ -65,9 +65,10 @@ button {
 .theme-doc-sidebar-container {
   border-right: none !important;
 }
-.pagination-nav {
-  display: none;
+/* .pagination-nav { 
+  display: none; 
 }
+*/
 
 .navbar {
   padding: 0;

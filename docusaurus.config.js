@@ -29,7 +29,6 @@ const config = {
           // sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           // editUrl: "https://github.com/tidal3527/stable-research",
-          showPreviousNext: true, // Ensures navigation buttons appear
           breadcrumbs: false,
           sidebarCollapsed: true,
         },
