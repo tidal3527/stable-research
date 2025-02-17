@@ -1,7 +1,7 @@
 ---
 sidebar_label: Luna/Terra/Anchor Collapse
 title: Luna/Terra/Anchor Collapse
-description: Luna/Terra/Anchor Collapse: Technical and Economic Analysis
+description: "Luna/Terra/Anchor Collapse: Technical and Economic Analysis"
 ---
 
 # Luna/Terra/Anchor Collapse: Technical and Economic Analysis
