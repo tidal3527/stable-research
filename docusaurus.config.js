@@ -28,7 +28,8 @@ const config = {
         docs: {
           // sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/tidal3527/stable-research",
+          // editUrl: "https://github.com/tidal3527/stable-research",
+          showPreviousNext: true, // Ensures navigation buttons appear
           breadcrumbs: false,
           sidebarCollapsed: true,
         },
@@ -110,7 +111,7 @@ const config = {
         // hideOnScroll: true,
         
         items: [
-          { to: "/docs", label: "Resources", position: "left"},
+          { to: "/docs", label: "Docs", position: "left"},
           { to: "/contact", label: "Contact", position: "left" },
         
           {
