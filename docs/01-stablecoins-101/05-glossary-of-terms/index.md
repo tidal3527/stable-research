@@ -1,7 +1,8 @@
 ---
-sidebar_label: Nuxt.js
-title: Deploying a Nuxt.js Application with Easypanel
-description: Deploying a Nuxt.js Application with Easypanel
+sidebar_label: Glossary
+title: Stablecoin Glossary
+description: A complete list of key stablecoin terms and definitions.
+
 ---
 
 # Nuxt.js
