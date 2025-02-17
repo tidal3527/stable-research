@@ -9,7 +9,7 @@ export default function Databases(): JSX.Element {
             What We Do
           </h2>
           <p className="tw-text-xl tw-text-gray-400">
-            We study, analyze and interpret the stablecoin space, providing custom
+            At Stable Research, we study, analyze and interpret the stablecoin space, providing custom
             insights through our tools and industry networks - whether you need
             strategic overviews or technical analysis.
           </p>

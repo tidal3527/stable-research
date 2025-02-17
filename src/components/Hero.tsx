@@ -13,7 +13,7 @@ export default function Hero(): JSX.Element {
         </span>
       </h1>
       <p className="tw-text-lg lg:tw-text-xl tw-font-normal tw-text-gray-400 tw-max-w-2xl tw-mx-auto tw-px-4">
-        We are a research initiative committed to exploring stablecoins and bridging traditional and decentralized finance.
+        A research initiative committed to exploring stablecoins and bridging traditional and decentralized finance.
       </p>
     </section>
   );

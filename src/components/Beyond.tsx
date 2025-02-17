@@ -11,7 +11,7 @@ export default function Databases(): JSX.Element {
           <p className="tw-text-xl tw-text-gray-400">
             We don't just study stablecoins.  
             Whether it's protecting economies from inflation, strengthening global markets, or innovating financial systems, {" "}
-            Stable Research's real pursuit is stability itself.
+            Stable Research's ultimate pursuit is stability itself.
           </p>
          
         </div>
