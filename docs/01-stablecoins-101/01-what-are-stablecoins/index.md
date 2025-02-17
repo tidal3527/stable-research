@@ -45,6 +45,7 @@ Despite their utility, stablecoins present challenges:
 - **Centralization Risks**: Many stablecoins rely on custodians to manage reserves, introducing counterparty risk.
 - **Peg Stability Concerns**: Algorithmic models have faced difficulties maintaining their value under market stress.
 - **Reserve Transparency**: Users depend on issuers to uphold reserve backing and redemption mechanisms.
+- **Dollar Dominance Risks**: The widespread use of USD-backed stablecoins could potentially limit monetary sovereignty for international financial markets and other nations.
 
 ## The Future of Stablecoins
 

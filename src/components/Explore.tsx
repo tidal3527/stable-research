@@ -11,8 +11,18 @@ export default function Databases(): JSX.Element {
           <p className="tw-text-xl tw-text-gray-400">
             Our growing library of resources helps you explore the stablecoin landscape with clarity.
             Whether you're looking for simple explainers, insights into different protocols, or broader industry trends,
-            explore our [knowledge base](https://stableresearch.xyz/docs) to learn more.
+            explore our{" "}
+            <a
+              href="https://stableresearch.xyz/docs"
+              className="tw-text-blue-500 tw-underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+            knowledge base
+            </a>{" "}
+            to learn more.
           </p>
+
          
         </div>
         <div className="tw-p-4">
