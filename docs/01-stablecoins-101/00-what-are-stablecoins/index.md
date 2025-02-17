@@ -1,12 +1,10 @@
 ---
-sidebar_label: Stablecoin Basics
-title: Understanding Stablecoins
-description: Introduction to Stablecoins and their key concepts
+sidebar_label: What Are Stablecoins?
+title: What Are Stablecoins?
+description: Introduction to Stablecoins and Key Concepts
 ---
 
-# Stablecoin Basics & Key Concepts
-
-## What Are Stablecoins?
+# What Are Stablecoins?
 Stablecoins are cryptocurrencies designed to maintain a stable value. Unlike Bitcoin or Ethereum, which experience price fluctuations, stablecoins aim to remain consistent in price. They achieve this by being backed by reserves, algorithmic controls, or other stabilization mechanisms.
 
 ## Why Do Stablecoins Matter?
