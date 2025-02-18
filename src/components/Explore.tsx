@@ -14,7 +14,7 @@ export default function Databases(): JSX.Element {
             explore our{" "}
             <a
               href="https://stableresearch.xyz/docs"
-              className="tw-text-blue-500 tw-underline"
+              className="tw-text-emerald-600"
               target="_blank"
               rel="noopener noreferrer"
             >

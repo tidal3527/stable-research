@@ -20,6 +20,9 @@ export default function Contact(): JSX.Element {
             <p className="tw-text-xl tw-font-semibold tw-text-emerald-500 tw-mt-2">
               rd [at] stableresearch [dot] xyz
             </p>
+            <p className="tw-text-sm tw-text-gray-500 tw-mt-2 tw-italic">
+              Emails from the xyz domain may go to spam. Please check your inbox and spam folder.
+            </p>
           </div>
           <div className="tw-p-4">
             <img
