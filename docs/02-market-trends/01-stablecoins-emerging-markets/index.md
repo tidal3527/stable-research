@@ -8,7 +8,7 @@ description: Exploring how stablecoins are used as a hedge against inflation and
 
 ## Introduction
 
-Stablecoins have evolved beyond their original role in cryptocurrency trading to serve as a reliable store of value, particularly in economies facing high inflation or volatile currencies. With over $200 billion in market capitalization, stablecoins are increasingly viewed as a digital alternative to traditional financial assets ([UBS]((https://www.ubs.com/us/en/wealth-management/insights/market-news/article.1886983.html))). In regions where traditional banking systems are unstable or where fiat currencies can rapidly lose value, stablecoins provide individuals and businesses with access to digital dollars, preserving wealth and purchasing power.
+Stablecoins have evolved beyond their original role in cryptocurrency trading to serve as a reliable store of value, particularly in economies facing high inflation or volatile currencies. With over $200 billion in market capitalization, stablecoins are increasingly viewed as a digital alternative to traditional financial assets ([UBS](https://www.ubs.com/us/en/wealth-management/insights/market-news/article.1886983.html)). In regions where traditional banking systems are unstable or where fiat currencies can rapidly lose value, stablecoins provide individuals and businesses with access to digital dollars, preserving wealth and purchasing power.
 
 ## Inflation Protection and Currency Stability
 
