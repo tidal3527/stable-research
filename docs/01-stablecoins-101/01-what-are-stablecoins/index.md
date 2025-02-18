@@ -6,7 +6,7 @@ description: Introduction to Stablecoins and Key Concepts
 
 # What Are Stablecoins?
 
-Stablecoins are digital assets designed to minimize volatility, addressing a key limitation of traditional cryptocurrencies. Unlike Bitcoin and Ethereum, which experience price fluctuations, stablecoins maintain a stable value through reserves, algorithmic controls, or hybrid mechanisms.
+Stablecoins are digital assets designed to minimize volatility, addressing a key limitation of traditional cryptocurrencies. Unlike say, Bitcoin and Ethereum, which experience price fluctuations, stablecoins maintain a stable value through reserves, algorithmic controls, or hybrid mechanisms.
 
 ## Why Do Stablecoins Matter?
 
@@ -16,8 +16,8 @@ Stablecoins enable predictable transactions, making them viable for payments, le
 
 Different mechanisms underpin stablecoin price stability:
 
-- **Fiat-Backed Stablecoins**: Pegged to traditional currencies like the US dollar, held in reserve typically at a 1:1 ratio. Examples include USDC and USDT.
-- **Crypto-Collateralized Stablecoins**: Backed by cryptocurrency reserves, often over-collateralized to absorb market swings. DAI is a notable example.
+- **Fiat-Backed Stablecoins**: Pegged to traditional currencies like the US dollar, held in reserve typically at a 1:1 ratio.
+- **Crypto-Collateralized Stablecoins**: Backed by cryptocurrency reserves, often over-collateralized to absorb market swings.
 - **Algorithmic Stablecoins**: Managed through smart contracts that regulate supply and demand, removing reliance on reserves.
 - **Hybrid Models**: Combine multiple stabilization strategies to enhance resilience.
 
@@ -34,8 +34,8 @@ Stablecoins serve critical functions in financial markets:
 
 - **Price Stability**: Reduces volatility, making stablecoins suitable for everyday transactions.
 - **Global Access**: Enables financial inclusion beyond traditional banking networks.
-- **Transparency**: Many issuers conduct regular audits to verify reserves.
 - **Smart Contract Integration**: Supports programmable financial applications.
+- **Transparency**: Many issuers conduct regular audits to verify reserves.
 
 ## Challenges and Risks
 
@@ -49,9 +49,5 @@ Despite their utility, stablecoins present challenges:
 
 ## The Future of Stablecoins
 
-Ongoing advancements in regulation, institutional adoption, and collateralization strategies will shape the stablecoin market. As financial infrastructure integrates digital assets, stablecoins are poised to become a foundational component of global finance.
-
-## Conclusion
-
-Stablecoins provide stability in digital finance, bridging traditional and decentralized ecosystems. As their adoption expands, their role in payments, lending, and financial infrastructure will continue to grow.
+Ongoing advancements in liquidity, collateralization, regulation and institutional adoption will shape the stablecoin market. As traditional financial infrastructure integrates digital assets, stablecoins are poised to become a key component of global finance.
 

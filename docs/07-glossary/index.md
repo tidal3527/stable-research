@@ -1,55 +1,105 @@
-# Database Backups
+---
+sidebar_label: Glossary
+title: Stablecoin Glossary
+description: A reference guide covering essential stablecoin terminology.
+---
 
-The process of creating backups typically involves taking a snapshot of the data at a specific point in time and storing it in a separate location. This can be done manually or using Easypanel's automated backup.
+# Stablecoin Glossary
 
-Easypanel's database backups can be stored on a variety of different cloud storage services that supports s3.
+### **Algorithmic Stablecoin**
+A type of stablecoin that uses smart contracts and economic incentives to maintain its peg without direct collateral backing.
 
-Cloud storage services such as [`Amazon S3`](https://aws.amazon.com/fr/s3/), [`DigitalOcean Spaces`](https://www.digitalocean.com/products/spaces), and [`Scaleway Object Storage`](https://www.scaleway.com/en/object-storage/) provide scalable, durable, and secure storage for backups, and can be accessed using APIs and tools that are commonly used with backup software.
+### **Arbitrage**
+The practice of buying and selling a stablecoin across different markets to take advantage of price differences, helping maintain its peg.
 
-In addition to using third-party S3 providers, it is also possible to set up your own S3-compatible storage using open source software like [`MinIO`](https://min.io/) or [`Storj`](https://storj.io). This allows you to host an S3 instance on your own infrastructure, giving you full control over the storage environment and enabling you to store backups in a location that you trust.
+### **Backing**
+The assets or mechanisms that ensure a stablecoin maintains its value, such as fiat currency, crypto reserves, or algorithmic adjustments.
 
-## Requirements
+### **Burn Mechanism**
+A process in which stablecoins are permanently removed from circulation, often to reduce supply and stabilize price.
 
-- A server running Easypanel with at least one database
-- An account from your S3 provider and credentials to access your bucket
-- A freshly prepared bucket
+### **Centralized Stablecoin**
+A stablecoin issued and managed by a central entity, often backed by fiat reserves held in traditional banks.
 
-## Destinations
+### **Collateralization**
+The use of assets, such as fiat or crypto, to back the issuance of a stablecoin.
 
-Easypanel allows you to setup multiple S3 provider on the same server. That means that you can backup every database on a separate provider or not. To run backups you need at least one destination setup.
+### **Crypto-Collateralized Stablecoin**
+A stablecoin backed by cryptocurrency reserves, usually over-collateralized to account for volatility.
 
-Every destinations needs a name that you define by yourself and it's credentials
+### **Depegging**
+A situation where a stablecoin’s market price deviates significantly from its intended peg.
 
-All the following fields are required, if your configuration is wrong easypanel will throw you an error "Could not connect".
+### **Decentralized Stablecoin**
+A stablecoin that operates without a central issuer and relies on smart contracts and decentralized governance.
 
-- Access Key Id
-- Secret Access Key
-- Bucket
-- Region
-- Endpoint
+### **DeFi (Decentralized Finance)**
+A blockchain-based financial ecosystem that offers permissionless (and sometimes trustless) financial services without reliance on traditional intermediaries.
 
-:::warning
-If you misconfigured your crendential's permissions Easypanel won't warn you!  
- Your crendentials needs read/write access to your bucket!
-:::
+### **Fiat-Backed Stablecoin**
+A stablecoin backed 1:1 by fiat currency reserves held in banks or equivalent financial instruments.
 
-## Setup your database
+### **Floating Peg**
+A system where a stablecoin’s value is designed to fluctuate within a certain range rather than maintaining a fixed 1:1 peg.
 
-Once you've configured your storage provider, it's time to configure your backup recurrence.
-Each database service setup by Easypanel has it's own configuration. 
+### **Governance Token**
+A token that allows holders to participate in decision-making processes for a stablecoin protocol.
 
-:::warning
-The backup feature is disabled by default and only shows if you have the Hobby plan or higher.
-:::
+### **Hybrid Stablecoin**
+A stablecoin that combines multiple stabilization mechanisms, such as partial collateralization with algorithmic adjustments.
 
-To configure database backups, go to your database service then scroll down to the 'backups' section.
-This section allows you to choose which destination is targeted and which prefix your want for your database.
+### **Lending Market Integrations**
+The incorporation of stablecoins or Real World Assets into Decentralized Finance lending protocols, enabling borrowing and lending with on-chain collateralization.
 
-A prefix is appended to the final filename that will be uploaded to your storage provider. For some storage providers it will appear as a folder. For example you can set your database name or service name!
+### **Liquidity Pool**
+A smart contract-based reserve of assets used to facilitate stablecoin trading and maintain price stability.
 
-The schedule field sets a time interval for the backup to run. It is based on the CRON's format.
-You can make your own cron expression easily using [`crontab.guru`](https://crontab.guru/).
+### **Market Maker**
+An entity or algorithm that provides liquidity by continuously buying and selling stablecoins to maintain price stability.
 
-:::warning
-This field currently has no validation. If typed incorrectly, it won't work!
-:::
+### **On/Off-Ramps**
+Services that allow users to convert between fiat currency and crypto assets (on-ramps) or vice versa (off-ramps), facilitating seamless entry and exit from blockchain ecosystems.
+
+### **Over-Collateralization**
+A mechanism where stablecoins are backed by reserves worth more than the circulating supply to prevent depegging.
+
+### **Peg**
+The target value that a stablecoin aims to maintain, typically tied to a fiat currency like the U.S. dollar.
+
+### **Peg Stability Mechanism**
+A set of mechanisms, including arbitrage and collateralization, used to maintain a stablecoin’s value.
+
+### **Real-World Asset (RWA)**
+A tangible or financial asset, such as real estate, bonds, or commodities, that is represented and traded on-chain via tokenization.
+
+### **Reserve Transparency**
+The practice of providing publicly accessible proof of reserves to verify a stablecoin’s backing.
+
+### **Seigniorage**
+The profit generated by the issuance of a stablecoin, particularly in algorithmic models that expand and contract supply.
+
+### **Smart Contract**
+A self-executing contract with coded terms that govern the issuance and management of decentralized stablecoins.
+
+### **Swap Pools**
+Liquidity pools on decentralized exchanges (DEXs) that facilitate the swapping of assets, including stablecoins.
+
+### **Tokenization (of Stablecoins)**
+The process of converting real-world assets or stablecoin reserves into blockchain-based tokens, enabling fractional ownership, increased liquidity, and programmable financial interactions.
+
+### **TradFi (Traditional Finance)**
+The conventional financial system, including banks, investment firms, and regulated financial institutions that operate under centralized oversight and established regulatory frameworks.
+
+### **Volatility Buffer**
+A risk-management feature in stablecoin protocols that mitigates price swings by holding additional collateral.
+
+### **Yield-Bearing Stablecoin**
+A stablecoin that generates passive income for holders by earning yield through mechanisms such as lending, staking, or protocol revenue sharing.
+
+### **Yield Farming**
+A strategy where users provide liquidity or stake assets in DeFi protocols to earn rewards, often in the form of additional tokens or protocol fees.
+
+## Conclusion
+
+This glossary serves as a foundational reference for understanding key stablecoin-related concepts. As the market evolves, new terms and mechanisms will continue to emerge.
+

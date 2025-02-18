@@ -6,9 +6,7 @@ description: Understanding the mechanisms that keep stablecoins pegged, includin
 
 # How Stablecoins Work
 
-## Maintaining Stability in a Volatile Market
-
-Stablecoins are designed to maintain a stable value, typically pegged to a fiat currency like the U.S. dollar. Unlike traditional cryptocurrencies, which experience price volatility, stablecoins use various stabilization mechanisms to preserve their peg, ensuring they function as reliable digital assets for payments, trading, and decentralized finance (DeFi).
+Stablecoins are designed to maintain a stable value, typically pegged to a fiat currency like the U.S. dollar. Unlike traditional cryptocurrencies, stablecoins use various stabilization mechanisms to preserve their peg, ensuring they function as reliable digital assets for payments, trading, and decentralized finance (DeFi).
 
 ## Pegging Mechanisms: How Stability Is Achieved
 
@@ -17,7 +15,7 @@ Stablecoins maintain their value through different models:
 ### 1. **Fiat-Backed Stablecoins**
 Fiat-backed stablecoins are fully collateralized by traditional currency reserves held in banks or regulated financial institutions.
 
-- **Examples**: USDC, USDT, PYUSD
+- **Examples**: USDC (issued by Cirlce), USDT (Tether), PYUSD (PayPal)
 - **How It Works**: Each stablecoin is backed 1:1 by fiat currency reserves, ensuring easy redemption.
 - **Strengths**: High price stability, trusted collateral.
 - **Risks**: Centralized control, reliance on banking infrastructure, regulatory scrutiny.
@@ -33,7 +31,7 @@ These stablecoins are backed by cryptocurrency reserves, often over-collateraliz
 ### 3. **Algorithmic Stablecoins**
 Algorithmic stablecoins use smart contracts to dynamically adjust supply and demand, rather than relying on direct collateral.
 
-- **Examples**: UST (pre-collapse)
+- **Examples**: UST (issued by Terra)
 - **How It Works**: Smart contracts issue or burn tokens in response to price fluctuations.
 - **Strengths**: Capital-efficient, fully decentralized potential.
 - **Risks**: High de-pegging risk, dependent on continuous market confidence.
@@ -41,7 +39,7 @@ Algorithmic stablecoins use smart contracts to dynamically adjust supply and dem
 ### 4. **Hybrid Stablecoins**
 Hybrid stablecoins blend elements of the above models, combining collateral with algorithmic adjustments.
 
-- **Examples**: RSV, FRAX (partially algorithmic)
+- **Examples**: FRAX (partially algorithmic)
 - **Strengths**: Increased stability, optimized capital efficiency.
 - **Risks**: Complexity in design, multiple points of failure.
 
