@@ -8,7 +8,7 @@ description: Examining how stablecoin adoption influences the global demand for 
 
 ## Introduction
 
-Stablecoins have become a significant force in global finance, expanding from a niche tool for crypto trading into a major financial instrument. By 2024, the total supply of fiat-backed stablecoins surged from **$5 billion in early 2020 to approximately $159 billion** ([BVNK Report](https://bvnk.com/report/decade-of-digital-dollars#:~:text=In%20the%20last%20decade%2C%20we%E2%80%99ve,others%2C%20they%20power%20financial%20markets)). These digital assets function as digital proxies for the U.S. dollar or U.S. Treasury securities, reinforcing global demand for USD and influencing the broader financial ecosystem.
+Stablecoins have become a significant force in global finance, expanding from a niche tool for crypto trading into a major financial instrument. By 2024, the total supply of fiat-backed stablecoins surged from **$5 billion in early 2020 to over $150 billion** ([BVNK](https://bvnk.com/report/decade-of-digital-dollars#:~:text=In%20the%20last%20decade%2C%20we%E2%80%99ve,others%2C%20they%20power%20financial%20markets)). These digital assets function as digital proxies for the U.S. dollar or U.S. Treasury securities, reinforcing global demand for USD and influencing the broader financial ecosystem.
 
 ## Stablecoins and Investment in U.S. Securities
 
@@ -19,11 +19,11 @@ Most major stablecoins maintain a 1:1 peg to the U.S. dollar by holding reserves
 - **Tether (USDT):** The largest stablecoin issuer held **approximately $97.6 billion in U.S. Treasury bonds** as of mid-2024, ranking it as the **18th largest holder of U.S. government debt**, surpassing Germany and the UAE ([EconLib](https://www.econlib.org/jeff-hummel-on-tether/#:~:text=Treasuries%20after%20the%20governments%20of,%E2%80%9D)).
 - **USD Coin (USDC):** Circle, the issuer of USDC, keeps about **80% of its reserves in short-term U.S. Treasuries**, with holdings surpassing **$40 billion** ([Circle](https://www.circle.com/blog/how-the-usdc-reserve-is-structured-and-managed#:~:text=How%20the%20USDC%20Reserve%20is,within%20the%20US%20banking%20system)). 
 
-As stablecoins grow, their issuers allocate more capital to U.S. safe assets, **making them significant players in the U.S. Treasury market**. Policymakers have noted that requiring issuers to hold Treasuries against stablecoins guarantees liquidity and demand for USD-denominated sovereign debt ([Atlantic Council](https://www.atlanticcouncil.org/)). This dynamic strengthens the dollar’s role in global finance.
+As stablecoins grow, their issuers allocate more capital to U.S. safe assets, making them significant players in the U.S. Treasury market. Policymakers have noted that requiring issuers to hold Treasuries against stablecoins guarantees liquidity and demand for USD-denominated sovereign debt ([Atlantic Council](https://www.atlanticcouncil.org/)). This dynamic strengthens the dollar’s role in global finance.
 
 ## Implications for Other Global Currencies
 
-The rise of stablecoins could have significant consequences for non-USD currencies, raising concerns among policymakers worldwide:
+Stablecoins carry significant risks for non-USD currencies, raising concerns among policymakers worldwide:
 
 ### **1. Diminished Role of Other Currencies**
 
@@ -35,7 +35,7 @@ Some governments have explored issuing state-backed stablecoins or central bank 
 
 ### **3. Stricter Regulatory Responses**
 
-To safeguard sovereignty, non-US policymakers are likely to impose stricter regulations and monitoring on both crypto and capital outflows. The European Union’s MiCA framework, for instance, enforces strict reserve and licensing requirements on stablecoin issuers. In major markets, such as the EU, where enforcement tools exist but the ability to match US dollar stablecoins remains limited, increased stablecoin legislation is likely. However, these measures won’t come without costs, and their impact remains to be seen.
+To safeguard sovereignty, non-US policymakers are likely to impose stricter regulations and monitoring on both crypto and capital outflows. The European Union’s MiCA framework, for instance, enforces strict reserve and licensing requirements on stablecoin issuers. In major markets, such as the EU, where enforcement tools exist but the ability to match US dollar stablecoins remains limited, increased stablecoin legislation is likely. However, these measures have costs too, particularly on innovation, and their impact remains to be seen.
 
 ## Conclusion
 
