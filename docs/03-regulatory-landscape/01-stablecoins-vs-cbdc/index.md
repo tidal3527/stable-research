@@ -4,7 +4,7 @@ title: CBDCs vs Stablecoins
 description: Designed for policymakers, this research dissects fundamental trade-offs between CBDCs and Stablecoins
 ---
 
-# **CBDC vs. Stablecoin: Policy Considerations for the Digital Economy**  
+# **CBDC vs. Stablecoins: Policy Considerations for the Digital Economy**  
 
 **Ongoing study. Available March 2025. Contact us if you'd like access.**  
 
