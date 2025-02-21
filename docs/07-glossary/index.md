@@ -85,10 +85,10 @@ A self-executing contract with coded terms that govern the issuance and manageme
 Liquidity pools on decentralized exchanges (DEXs) that facilitate the swapping of assets, including stablecoins.
 
 ### **Tokenization (of Stablecoins)**
-The process of converting real-world assets or stablecoin reserves into blockchain-based tokens, enabling fractional ownership, increased liquidity, and programmable financial interactions.
+The process of converting real-world assets or stablecoin reserves into blockchain-based tokens, enabling fractional ownership, increased liquidity and programmable financial interactions.
 
 ### **TradFi (Traditional Finance)**
-The conventional financial system, including banks, investment firms, and regulated financial institutions that operate under centralized oversight and established regulatory frameworks.
+The conventional financial system, including banks, investment firms and regulated financial institutions that operate under centralized oversight and established regulatory frameworks.
 
 ### **Volatility Buffer**
 A risk-management feature in stablecoin protocols that mitigates price swings by holding additional collateral.

@@ -10,7 +10,7 @@ Stablecoins are digital assets designed to minimize volatility, addressing a key
 
 ## Why Do Stablecoins Matter?
 
-Stablecoins enable predictable transactions, making them viable for payments, lending, and savings. Their stability fosters institutional adoption and bridges traditional finance with decentralized finance (DeFi), enhancing liquidity and efficiency in digital markets.
+Stablecoins enable predictable transactions, making them viable for payments, lending and savings. Their stability fosters institutional adoption and bridges traditional finance with decentralized finance (DeFi), enhancing liquidity and efficiency in digital markets.
 
 ## How Do Stablecoins Maintain Stability?
 
@@ -27,7 +27,7 @@ Stablecoins serve critical functions in financial markets:
 
 - **Payments & Settlements**: Reduce transaction costs and settlement times, especially in cross-border payments.
 - **Liquidity Management**: Provide traders with a stable intermediary between volatile assets.
-- **DeFi Applications**: Power lending, borrowing, and automated financial services.
+- **DeFi Applications**: Power lending, borrowing and automated financial services.
 - **Wealth Protection**: Offer stability in economies with high inflation or currency depreciation.
 
 ## Advantages of Stablecoins
@@ -35,7 +35,7 @@ Stablecoins serve critical functions in financial markets:
 - **Price Stability**: Reduces volatility, making stablecoins suitable for everyday transactions.
 - **Global Access**: Enables financial inclusion beyond traditional banking networks.
 - **Smart Contract Integration**: Supports programmable financial applications.
-- **Transparency**: Many issuers conduct regular audits to verify reserves.
+- **Efficiency**: Serves as a tool for optimized money utilization through yield farming and liquidity provision.
 
 ## Challenges and Risks
 

@@ -10,9 +10,9 @@ description: Mountain Protocol's USDM as a model for yield-bearing stablecoins
 ## Abstract
 Stablecoins have rapidly emerged as a foundational component of the evolving digital finance landscape, bridging the gap between traditional financial systems (TradFi) and decentralized finance (DeFi). Among them, USDM, issued by Mountain Protocol, differentiates itself by offering a yield-bearing mechanism, enabling holders to earn passive yield through a rebasing model tied to reserves backed by U.S. Treasury Bills (T-Bills). Unlike conventional stablecoins such as USDC or USDT, which retain earnings from reserves, USDM directly distributes yield to its holders, positioning it as a non-extractive alternative in the stablecoin ecosystem.
 
-This paper offers a detailed analysis of USDM, evaluating its design, reserve structure, peg mechanics, yield distribution, and integration into the broader DeFi ecosystem. We examine the key advantages that set USDM apart, such as its regulatory framework, its strong DeFi focus and its transparency while also addressing the challenges it faces, including liquidity constraints, reliance on USDC for issuance and redemption, and integration complexities with existing DeFi protocols. The paper also evaluates potential improvements to USDM's smart contract, governance model, and adoption strategies, including cross-chain expansion, enhanced fiat on/off ramps, and diversifying reserves beyond USDC.
+This paper offers a detailed analysis of USDM, evaluating its design, reserve structure, peg mechanics, yield distribution and integration into the broader DeFi ecosystem. We examine the key advantages that set USDM apart, such as its regulatory framework, its strong DeFi focus and its transparency while also addressing the challenges it faces, including liquidity constraints, reliance on USDC for issuance and redemption and integration complexities with existing DeFi protocols. The paper also evaluates potential improvements to USDM's smart contract, governance model and adoption strategies, including cross-chain expansion, enhanced fiat on/off ramps and diversifying reserves beyond USDC.
 
-By critically assessing the strengths, weaknesses, and opportunities for USDM, this paper aims to provide a comprehensive understanding of its position within the stablecoin ecosystem, its potential for growth, and the broader implications for the future of decentralized finance.
+By critically assessing the strengths, weaknesses and opportunities for USDM, this paper aims to provide a comprehensive understanding of its position within the stablecoin ecosystem, its potential for growth and the broader implications for the future of decentralized finance.
 
 ## Introduction to USDM
 
@@ -20,7 +20,7 @@ USDM, issued by Mountain Protocol, is a yield-bearing stablecoin. Unlike convent
 
 The core distinction between USDM and traditional stablecoins like USDC or USDT lies in how reserve yields are managed. Conventional issuers retain the interest generated from their reserves, while USDM distributes it directly to token holders. By doing so, USDM differs from models where the benefits of reserve growth accrue primarily to the issuing entity.
 
-According to Mountain Protocol’s documentation, USDM is designed to be regulated, composable, and seamlessly integrated into DeFi ecosystems. As an ERC-20 token built on Ethereum, it retains the security and interoperability of smart contract-based finance while operating under a regulated framework established by the Bermuda Monetary Authority (BMA).
+According to Mountain Protocol’s documentation, USDM is designed to be regulated, composable and seamlessly integrated into DeFi ecosystems. As an ERC-20 token built on Ethereum, it retains the security and interoperability of smart contract-based finance while operating under a regulated framework established by the Bermuda Monetary Authority (BMA).
 
 
 ### Overview of Mountain Protocol
@@ -50,7 +50,7 @@ Interesting as the rebasing mechanism is, it introduces distinct challenges, par
 
 ## USDM Deep Dive
 
-The following deep dive critically evaluates USDM, examining its design, reserves, peg mechanics, yield distribution, risks, regulatory framework, and long-term viability. This section offers both detailed analysis and commentary to address potential challenges, opportunities for improvement, and broader market implications of USDM’s structure.
+The following deep dive critically evaluates USDM, examining its design, reserves, peg mechanics, yield distribution, risks, regulatory framework and long-term viability. This section offers both detailed analysis and commentary to address potential challenges, opportunities for improvement and broader market implications of USDM’s structure.
 
 ### 1. Reserves and Collateralization
 USDM is fully backed by U.S. Treasury Bills (T-Bills), a stable and secure asset class considered one of the safest forms of fiat-denominated collateral. These reserves are integral to the stability of USDM’s 1:1.x USD peg and form the foundation for the yield generation that is distributed to token holders.
@@ -96,11 +96,11 @@ USDM employs a rebasing mechanism to distribute yield, meaning that instead of i
 -   **User Behavior & Incentives**: Rebasing also creates interesting incentives for user behavior. Since rewards compound over time, users may have less incentive to actively trade or engage with the token, potentially reducing market liquidity. This contrasts with solutions that incentivize active trading by distributing rewards separately. The lack of interaction with USDM could reduce its overall circulation and liquidity, which may hinder adoption in fast-moving DeFi protocols. Further evaluation is needed based on data regarding how both USDM and wUSDM are used in DeFi protocols, though such data is scarce at this time.
 
 ### 4. Risks & Stress Testing
-USDM faces various risks, including counterparty exposure, liquidity management, and smart contract vulnerabilities. Given its reliance on traditional financial institutions for custody, counterparty risks need careful scrutiny.
+USDM faces various risks, including counterparty exposure, liquidity management and smart contract vulnerabilities. Given its reliance on traditional financial institutions for custody, counterparty risks need careful scrutiny.
 
 **Commentary:**
 
--   **Scenario Testing**: Evaluating how USDM would perform under market stress scenarios—such as the collapse of a key asset in the reserve or a global financial crisis—is crucial to understanding its long-term viability. At the moment, there is limited information on how Mountain Protocol models these scenarios. As mentioned earlier, given that the only information available on Mountain's reserves is through monthly attestations, it’s not feasible for independent auditors to use stress-testing tools to evaluate depegs and liquidity pressures.
+-   **Scenario Testing**: Evaluating how USDM would perform under market stress scenarios-such as the collapse of a key asset in the reserve or a global financial crisis-is crucial to understanding its long-term viability. At the moment, there is limited information on how Mountain Protocol models these scenarios. As mentioned earlier, given that the only information available on Mountain's reserves is through monthly attestations, it’s not feasible for independent auditors to use stress-testing tools to evaluate depegs and liquidity pressures.
 
 -   **Smart Contract Risk**: While Mountain’s codebase is audited by OpenZeppelin, smart contract vulnerabilities remain a concern, as is the risk of undiscovered attack vectors. It’s crucial to evaluate how the protocol would respond to an exploit or hack, particularly in its rebasing mechanism.
 
@@ -127,7 +127,7 @@ USDM builds trust through its transparent reserve structure and adherence to a r
 -   **Governance Centralization Concerns**: One critical area of concern is centralization in USDM’s governance model. The protocol’s reward multiplier and minting functions are controlled by specific admin roles, raising centralization risks. Given that these functions significantly affect the protocol’s yield distribution, it is essential to explore decentralized governance options, such as DAO-based systems or multisig wallets, to mitigate these risks. These are detailed in the smart contract audit section below.
 
 ## Smart Contract Audit: Observations and Risks
-A thorough audit of the USDM smart contract reveals a few critical observations that have implications for centralization, governance, and overall protocol security. Below, we highlight these concerns and suggest potential improvements to ensure a more secure, decentralized, and transparent framework.
+A thorough audit of the USDM smart contract reveals a few critical observations that have implications for centralization, governance and overall protocol security. Below, we highlight these concerns and suggest potential improvements to ensure a more secure, decentralized and transparent framework.
 
 ### 1. Centralization Risks in Multiplier Management
 The smart contract for USDM contains a function that allows the reward multiplier to be set by the DEFAULT_ADMIN_ROLE, centralizing control over a crucial parameter that influences how yield is distributed across token holders. This introduces risks.
@@ -148,7 +148,7 @@ The DEFAULT_ADMIN_ROLE has unrestricted access to change the reward multiplier a
 
 **Suggestion:**
 
--   This function should be locked programmatically or controlled via decentralized mechanisms such as a DAO (Decentralized Autonomous Organization) or multisignature wallet. This would ensure that changes to the multiplier are transparent, community-driven, and immune to central control.
+-   This function should be locked programmatically or controlled via decentralized mechanisms such as a DAO (Decentralized Autonomous Organization) or multisignature wallet. This would ensure that changes to the multiplier are transparent, community-driven and immune to central control.
 -   A failsafe mechanism should be implemented to ensure that the reward multiplier can only be adjusted based on oracle feeds, ensuring that changes are linked to market conditions rather than central control.
 
 ### 2. Minting Control and Centralization Risks
@@ -220,11 +220,11 @@ While contract upgrades are necessary for maintaining and improving the protocol
 ## Context within the Stablecoin Ecosystem
 
 ### Position in the Stablecoin Ecosystem
-USDM, issued by Mountain Protocol, stands out in the broader stablecoin ecosystem due to its unique yield-bearing mechanism, which distinguishes it from traditional stablecoins like USDC or USDT. Most stablecoins, while designed to maintain a stable peg, are not optimized inflation-resistance unless they are subjected to third-party yield farming. USDM’s innovation lies in its ability to offer passive yield from the underlying reserves (backed by U.S. Treasury Bills), and this feature positions it as a yield-bearing stablecoin.
+USDM, issued by Mountain Protocol, stands out in the broader stablecoin ecosystem due to its unique yield-bearing mechanism, which distinguishes it from traditional stablecoins like USDC or USDT. Most stablecoins, while designed to maintain a stable peg, are not optimized inflation-resistance unless they are subjected to third-party yield farming. USDM’s innovation lies in its ability to offer passive yield from the underlying reserves (backed by U.S. Treasury Bills) and this feature positions it as a yield-bearing stablecoin.
 
-However, USDM operates in a highly competitive landscape, where dominant players like USDC, USDT, and DAI hold significant market share, particularly in DeFi applications, cross-border payments, and centralized exchanges. These major stablecoins enjoy widespread adoption and liquidity, backed by strong network effects and brand recognition.
+However, USDM operates in a highly competitive landscape, where dominant players like USDC, USDT and DAI hold significant market share, particularly in DeFi applications, cross-border payments and centralized exchanges. These major stablecoins enjoy widespread adoption and liquidity, backed by strong network effects and brand recognition.
 
-Compared to these established players, USDM’s primary differentiator is its passive yield distribution through a rebasing mechanism, but this also brings challenges related to liquidity, adoption, and market integration. It’s still early for USDM to emerge as a major stablecoin contender, but its growth prospects are notable in the rapidly evolving DeFi 2.0 ecosystem.
+Compared to these established players, USDM’s primary differentiator is its passive yield distribution through a rebasing mechanism, but this also brings challenges related to liquidity, adoption and market integration. It’s still early for USDM to emerge as a major stablecoin contender, but its growth prospects are notable in the rapidly evolving DeFi 2.0 ecosystem.
 
 ### Key Advantages of USDM
 
@@ -232,7 +232,7 @@ Compared to these established players, USDM’s primary differentiator is its pa
 
 2. **Regulated & Transparent Framework**: USDM is issued under the Bermuda Monetary Authority (BMA), which provides a layer of regulatory oversight not available in many other stablecoin ecosystems. This regulatory compliance can foster trust, particularly with institutional investors and corporate treasuries, as USDM is subject to periodic proof-of-reserve attestations, ensuring that reserves remain 1:1 backed. Cryptocurrencies have traditionally been held back due to a lack of regulatory clarity. USDM’s structured legal framework thus provides significant advantage in securing institutional adoption over competitors that operate in less-regulated jurisdictions.
 
-3. **Strong Focus on DeFi Integration**: Mountain Protocol, through its partnerships and the wUSDM token, has focused heavily on integrating USDM into DeFi ecosystems, which positions it as a strong player for yield farming, lending markets, and liquidity pools (LPs). The use of PSMs (Peg Stability Modules) for stablecoin swaps and integration into liquidity pools enhances its utility in decentralized finance.
+3. **Strong Focus on DeFi Integration**: Mountain Protocol, through its partnerships and the wUSDM token, has focused heavily on integrating USDM into DeFi ecosystems, which positions it as a strong player for yield farming, lending markets and liquidity pools (LPs). The use of PSMs (Peg Stability Modules) for stablecoin swaps and integration into liquidity pools enhances its utility in decentralized finance.
 
 ### Challenges Facing USDM
 1. **Liquidity & Volume Constraints**: USDM’s current market adoption is limited compared to dominant stablecoins like USDC and USDT. While liquidity pools and yield farming are core use cases, USDM will need to scale its liquidity volume to compete in larger lending markets and swaps. Higher trading volumes are necessary to drive adoption on decentralized exchanges (DEXs). Additionally, since USDM, like USDC, is backed by U.S. Treasuries, it does not have any inherent liquidity advantages over USDC.
@@ -241,10 +241,10 @@ Compared to these established players, USDM’s primary differentiator is its pa
 
 3. **Rebasing Model Integration**: While the rebasing model offers unique benefits, it introduces complexities in composability with existing DeFi protocols. Liquidity pools and lending markets may not always support rebasing tokens, requiring solutions like wrapped versions (e.g., wUSDM) to integrate seamlessly. However, wrapped tokens come with their own challenges related to adoption and interoperability, particularly if the demand for wrapped USDM is not high. Thus, the rebasing model must evolve to be more composable with DeFi protocols, or alternative methods like direct yield accrual (e.g., like wstETH) could provide a smoother experience for users.
 
-4. **Market Adoption vs. Network Effects**: USDM faces significant adoption barriers due to its competition with dominant stablecoins that benefit from network effects. USDC, for instance, is already integrated across the majority of DeFi protocols, exchanges, and lending platforms, making it the go-to stablecoin in many ecosystems. USDM must offer unique advantages to carve out its space in an increasingly crowded market.
+4. **Market Adoption vs. Network Effects**: USDM faces significant adoption barriers due to its competition with dominant stablecoins that benefit from network effects. USDC, for instance, is already integrated across the majority of DeFi protocols, exchanges and lending platforms, making it the go-to stablecoin in many ecosystems. USDM must offer unique advantages to carve out its space in an increasingly crowded market.
 
 ## Future Steps for USDM
-1. **Expanding Cross-Chain Adoption**: One of the key strategies to accelerate USDM’s adoption is expanding its presence across multiple blockchains. By deploying native USDM on other blockchains—such as Polygon, Solana, Avalanche, and Arbitrum—Mountain Protocol could dramatically increase its reach within the DeFi space. Swap pools, lending market integrations, Peg Stability Modules and great Liquidity Pool adoption will all help.
+1. **Expanding Cross-Chain Adoption**: One of the key strategies to accelerate USDM’s adoption is expanding its presence across multiple blockchains. By deploying native USDM on other blockchains-such as Polygon, Solana, Avalanche and Arbitrum-Mountain Protocol could dramatically increase its reach within the DeFi space. Swap pools, lending market integrations, Peg Stability Modules and great Liquidity Pool adoption will all help.
 
 2. **Exploring Fiat On/Off Ramps**: To make USDM more accessible and cross-border payment-friendly, it could consider integrating fiat on/off ramps directly into its ecosystem. This would allow users to convert fiat currency into USDM without the need for intermediaries, such as USDC or Tether. These on-ramps would provide USDM with greater utility in global payments systems, particularly for businesses or individuals engaging in cross-border transactions. With lower transaction fees and faster settlement times, USDM could serve as an ideal stablecoin for remittance or international trade, helping bridge the gap between fiat and decentralized finance.
 
@@ -255,4 +255,4 @@ USDM represents a promising step forward in the stablecoin ecosystem, offering p
 
 However, USDM faces several challenges on its path to broader adoption. Its reliance on USDC introduces a single point of failure, limiting its interoperability and increasing systemic risks. Its rebasing model, while offering passive yield, introduces complications in terms of liquidity management and composability with DeFi protocols. Like other yield-bearing stablecoins, it is subject to securities regulations. The need to scale its liquidity volume and integrate more seamlessly with existing DeFi platforms is crucial for its success.
 
-To fully realize its potential, USDM should focus on expanding its presence across multiple blockchains, diversifying its reserves, and improving its governance structure to ensure greater decentralization and transparency. Moreover, integrating fiat on/off ramps could enhance its utility in cross-border payments, further differentiating it from other stablecoins. By addressing these key challenges, USDM can solidify its position in the stablecoin market and play a significant role in the future of digital finance.
+To fully realize its potential, USDM should focus on expanding its presence across multiple blockchains, diversifying its reserves and improving its governance structure to ensure greater decentralization and transparency. Moreover, integrating fiat on/off ramps could enhance its utility in cross-border payments, further differentiating it from other stablecoins. By addressing these key challenges, USDM can solidify its position in the stablecoin market and play a significant role in the future of digital finance.

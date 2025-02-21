@@ -1,19 +1,19 @@
 ---
 sidebar_label: Impact of Stablecoins on Traditional Finance
 title: Impact of Stablecoins on Traditional Finance
-description: Exploring how stablecoins are reshaping financial markets, banking operations, and capital flows.
+description: Exploring how stablecoins are reshaping financial markets, banking operations and capital flows.
 ---
 
 # Impact of Stablecoins on Traditional Finance
 
 ## Introduction
 
-Stablecoins have evolved from niche crypto assets to a functional part of the financial ecosystem. Their adoption is reshaping payments, capital flows, banking operations, and investment strategies. This post explores how stablecoins are impacting these sectors and the broader U.S. economy.
+Stablecoins have evolved from niche crypto assets to a functional part of the financial ecosystem. Their adoption is reshaping payments, capital flows, banking operations and investment strategies. This post explores how stablecoins are impacting these sectors and the broader U.S. economy.
 
-## Faster, Cheaper, and More Accessible Transactions
+## Faster, Cheaper and More Accessible Transactions
 
 ### **Speed**
-Stablecoin transactions settle in minutes or seconds, unlike traditional banking transfers, which can take days. This instant settlement reduces counterparty risk and improves liquidity flows in global markets ([PYMNTS](https://www.pymnts.com/cryptocurrency/2024/stablecoins-biggest-2024-moves-from-cross-border-b2b-to-real-time-treasury/#:~:text=Historically%2C%20cross,associated%20with%20traditional%20banking%20channels)).
+Stablecoin transactions settle in minutes or seconds, unlike traditional banking transfers, which can take days. This instant settlement reduces counterparty risk and improves liquidity flows in global markets.
 
 ### **Cost**
 Stablecoin transaction fees are a fraction of a cent (though there can be other fees associated with stablecoin transactions), compared to the 2–3% fees charged by credit card networks or the $15–$30 cost of traditional wire transfers.
@@ -33,7 +33,7 @@ Stablecoins bypass the correspondent banking system, enabling near-instant inter
 During times of market volatility, investors in crypto markets flock to stablecoins as a safe harbor, keeping capital inside the digital ecosystem (rather than cashing out to bank accounts). This dynamic is containing and redirecting capital flows.
 
 ### **Traditional Market Integrations**
-Institutions have piloted using stablecoins for same-day or T+0 settlement of stock trades. Over time, such use could improve liquidity in securities markets by reducing the time funds are tied up in settlement processes([Visa](https://usa.visa.com/about-visa/newsroom/press-releases.releaseId.19881.html)).
+Institutions have piloted using stablecoins for same-day or T+0 settlement of stock trades. Over time, such use could improve liquidity in securities markets by reducing the time funds are tied up in settlement processes.
 
 
 ## Influence on Banking Operations
@@ -61,7 +61,7 @@ In crypto markets, borrowing against stablecoin collateral (or vice versa) is co
 ## Impact on Commerce and Business Operations
 
 ### **Lower Payment Costs for Merchants**
-Stablecoins can potentially reduce transaction fees for businesses, making them an attractive alternative to credit card payments. Large onsumer-facing companies like Regal Cinemas are expected to begin stablecoin payments pilots ([PYMNTS](https://www.pymnts.com/cryptocurrency/2024/stablecoins-biggest-2024-moves-from-cross-border-b2b-to-real-time-treasury/#:~:text=During%202024%2C%20stablecoins%E2%80%99%20role%20as,United%20States%20using%20the%C2%A0USDC%20stablecoin)).
+Stablecoins can potentially reduce transaction fees for businesses, making them an attractive alternative to credit card payments. Prominent consumer-facing companies like Regal Cinemas are expected to begin stablecoin payments pilots ([PYMNTS](https://www.pymnts.com/cryptocurrency/2024/stablecoins-biggest-2024-moves-from-cross-border-b2b-to-real-time-treasury/#:~:text=During%202024%2C%20stablecoins%E2%80%99%20role%20as,United%20States%20using%20the%C2%A0USDC%20stablecoin)).
 
 ### **Faster B2B Payments and Supply Chain Finance**
 Businesses using stablecoins for payments can settle invoices immediately, reducing cash conversion cycles and improving liquidity.
@@ -71,5 +71,5 @@ Stablecoins allow corporations to move funds instantly across subsidiaries, redu
 
 ## Conclusion
 
-Stablecoins are no longer just a crypto niche; they are actively reshaping traditional finance by enhancing transaction efficiency, altering capital flows, and challenging banking and investment models. As adoption grows, their impact on liquidity, lending, and commerce will continue to drive significant changes across global financial markets.
+Stablecoins are no longer just a crypto niche; they are actively reshaping traditional finance by enhancing transaction efficiency, altering capital flows and challenging banking and investment models. As adoption grows, their impact on liquidity, lending and commerce will continue to drive significant changes across global financial markets.
 

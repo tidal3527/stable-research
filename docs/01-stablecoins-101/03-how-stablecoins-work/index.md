@@ -6,7 +6,7 @@ description: Understanding the mechanisms that keep stablecoins pegged, includin
 
 # How Stablecoins Work
 
-Stablecoins are designed to maintain a stable value, typically pegged to a fiat currency like the U.S. dollar. Unlike traditional cryptocurrencies, stablecoins use various stabilization mechanisms to preserve their peg, ensuring they function as reliable digital assets for payments, trading, and decentralized finance (DeFi).
+Stablecoins are designed to maintain a stable value, typically pegged to a fiat currency like the U.S. dollar. Unlike traditional cryptocurrencies, stablecoins use various stabilization mechanisms to preserve their peg, ensuring they function as reliable digital assets for payments, trading and decentralized finance (DeFi).
 
 ## Pegging Mechanisms: How Stability Is Achieved
 
@@ -15,8 +15,8 @@ Stablecoins maintain their value through different models:
 ### 1. **Fiat-Backed Stablecoins**
 Fiat-backed stablecoins are fully collateralized by traditional currency reserves held in banks or regulated financial institutions.
 
-- **Examples**: USDC (issued by Cirlce), USDT (Tether), PYUSD (PayPal)
-- **How It Works**: Each stablecoin is backed 1:1 by fiat currency reserves, ensuring easy redemption.
+- **Examples**: USDC (issued by Circle), USDT (Tether), PYUSD (PayPal)
+- **How It Works**: Each stablecoin is backed 1:1 by fiat currency reserves.
 - **Strengths**: High price stability, trusted collateral.
 - **Risks**: Centralized control, reliance on banking infrastructure, regulatory scrutiny.
 
@@ -26,7 +26,7 @@ These stablecoins are backed by cryptocurrency reserves, often over-collateraliz
 - **Examples**: DAI (MakerDAO), LUSD (Liquity)
 - **How It Works**: Users deposit crypto assets into smart contracts as collateral to mint stablecoins.
 - **Strengths**: Decentralized, transparent reserves, censorship-resistant.
-- **Risks**: Requires excess collateral, vulnerability to market crashes.
+- **Risks**: Requires excess collateral, vulnerable to market crashes.
 
 ### 3. **Algorithmic Stablecoins**
 Algorithmic stablecoins use smart contracts to dynamically adjust supply and demand, rather than relying on direct collateral.
@@ -53,5 +53,5 @@ Arbitrageurs play a crucial role in stabilizing stablecoins when prices deviate 
 
 ## Conclusion
 
-Whether backed by fiat, crypto, or algorithms, stablecoins' ability to maintain a consistent value depends on sound mechanisms and market confidence. As regulatory clarity improves and designs evolve, stablecoins are set to become even more integral to payments, trading, and financial infrastructure.
+Whether backed by fiat, crypto, or algorithms, stablecoins' ability to maintain a consistent value depends on sound mechanisms and market confidence. As regulatory clarity improves and designs evolve, stablecoins are set to become even more integral to payments, trading and financial infrastructure.
 
