@@ -118,6 +118,12 @@ const config = {
             label: "Github",
             position: "left",
           },
+
+          {
+            to: "https://miruvor.me/",
+            label: "Blog",
+            position: "left",
+          },
           
         ],
       },
