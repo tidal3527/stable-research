@@ -11,7 +11,7 @@ export default function Tools(): JSX.Element {
               Connect With Us
             </h2>
             <p className="tw-text-xl tw-text-gray-400">
-              We ae a global team of researchers, analysts, and stablecoin enthusiasts.
+              We are a global team of researchers, analysts, and stablecoin enthusiasts.
             </p>
             <p className="tw-text-xl tw-text-gray-400 tw-mt-4">
               For general questions, business inquiries, or collaboration opportunities, contact {" "} 
