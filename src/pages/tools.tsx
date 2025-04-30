@@ -10,25 +10,53 @@ type Node = {
 };
 
 const stablecoins: Node[] = [
-  { id: "usdc", label: "USDC", x: 100, y: 60, color: "#10b981" },
-  { id: "usdt", label: "USDT", x: 100, y: 160, color: "#f97316" },
-  { id: "ethena", label: "Ethena", x: 100, y: 260, color: "#6366f1" },
+  { id: "usdt", label: "USDT", x: 100, y: 40, color: "#f97316" },
+  { id: "usdc", label: "USDC", x: 100, y: 80, color: "#10b981" },
+  { id: "sky", label: "Sky", x: 100, y: 120, color: "#8b5cf6" },
+  { id: "ethena", label: "Ethena", x: 100, y: 160, color: "#6366f1" },
+  { id: "fdusd", label: "FDUSD", x: 100, y: 200, color: "#f43f5e" },
+  { id: "paypal", label: "PayPal", x: 100, y: 240, color: "#3b82f6" }
 ];
 
 const collateral: Node[] = [
-  { id: "t_bills", label: "T-Bills", x: 500, y: 100, color: "#3b82f6" },
-  { id: "cash", label: "Cash", x: 500, y: 220, color: "#f59e0b" },
+  { id: "corp_bonds", label: "Corporate Bonds", x: 500, y: 20, color: "#f59e0b" },
+  { id: "metals", label: "Precious Metals", x: 500, y: 50, color: "#a3e635" },
+  { id: "btc", label: "Bitcoins", x: 500, y: 80, color: "#fde047" },
+  { id: "other_inv", label: "Other Investments", x: 500, y: 110, color: "#f87171" },
+  { id: "loans", label: "Secured Loans", x: 500, y: 140, color: "#38bdf8" },
+  { id: "cash_short", label: "Cash & Short-Term Deposits", x: 500, y: 170, color: "#4ade80" },
+  { id: "t_bills", label: "U.S. Treasury Bills", x: 500, y: 200, color: "#60a5fa" },
+  { id: "overnight_repo", label: "Overnight Repos", x: 500, y: 230, color: "#e879f9" },
+  { id: "term_repo", label: "Term Repos", x: 500, y: 260, color: "#fb923c" },
+  { id: "money_mkt", label: "Money Market Funds", x: 500, y: 290, color: "#c084fc" },
+  { id: "cash_bank", label: "Cash & Bank Deposits", x: 500, y: 320, color: "#5eead4" },
+  { id: "non_us_tbills", label: "Non-U.S. Treasury Bills", x: 500, y: 350, color: "#facc15" },
+  { id: "usdc_ref", label: "USDC", x: 500, y: 380, color: "#14b8a6" },
+  { id: "wrapped", label: "ETH BTC wrapped", x: 500, y: 410, color: "#06b6d4" },
+  { id: "crypto_yield", label: "Crypto Yield-Bearing", x: 500, y: 440, color: "#ec4899" },
+  { id: "mkr", label: "MKR", x: 500, y: 470, color: "#84cc16" }
 ];
 
+// Placeholder dummy data — replace 'value' with real volumes later
 const links = [
-  { from: "usdc", to: "t_bills" },
-  { from: "usdt", to: "cash" },
-  { from: "ethena", to: "t_bills" },
+  { from: "usdt", to: "t_bills", value: 20 },
+  { from: "usdt", to: "cash_bank", value: 10 },
+  { from: "usdc", to: "t_bills", value: 25 },
+  { from: "usdc", to: "overnight_repo", value: 15 },
+  { from: "sky", to: "usdc_ref", value: 12 },
+  { from: "ethena", to: "usdc_ref", value: 10 },
+  { from: "fdusd", to: "cash_short", value: 8 },
+  { from: "paypal", to: "money_mkt", value: 6 },
+  { from: "usdc_ref", to: "t_bills", value: 18 },
+  { from: "usdc_ref", to: "term_repo", value: 9 },
+  { from: "ethena", to: "crypto_yield", value: 4 },
+  { from: "sky", to: "wrapped", value: 6 },
+  { from: "sky", to: "crypto_yield", value: 3 },
+  { from: "paypal", to: "corp_bonds", value: 2 }
 ];
 
 export default function Tools(): JSX.Element {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
-
   const allNodes = [...stablecoins, ...collateral];
   const getNode = (id: string) => allNodes.find((n) => n.id === id)!;
 
@@ -43,7 +71,9 @@ export default function Tools(): JSX.Element {
   const isDimmed = (nodeId: string) => {
     if (!selectedNode) return false;
     if (nodeId === selectedNode) return false;
-    const connected = links.some((link) => isLinked(selectedNode, link) && isLinked(nodeId, link));
+    const connected = links.some(
+      (link) => isLinked(selectedNode, link) && isLinked(nodeId, link)
+    );
     return !connected;
   };
 
@@ -57,7 +87,7 @@ export default function Tools(): JSX.Element {
           </p>
         </div>
         <div className="tw-mt-12 tw-overflow-x-auto">
-          <svg width="640" height="360" className="tw-mx-auto tw-bg-white tw-rounded-lg tw-shadow-md">
+          <svg width="800" height="520" className="tw-mx-auto tw-bg-white tw-rounded-lg tw-shadow-md">
             {/* Edges */}
             {links.map((link, i) => {
               const from = getNode(link.from);
@@ -82,7 +112,9 @@ export default function Tools(): JSX.Element {
               return (
                 <g
                   key={node.id}
-                  onClick={() => setSelectedNode(selectedNode === node.id ? null : node.id)}
+                  onClick={() =>
+                    setSelectedNode(selectedNode === node.id ? null : node.id)
+                  }
                   style={{ cursor: "pointer" }}
                 >
                   <circle
