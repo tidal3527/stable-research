@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import Layout from "@theme/Layout";
 
-// Core node and link types
+// Node and link types
 type Node = {
   id: string;
   label: string;
   group: "stablecoin" | "collateral";
   color: string;
+};
+
+type Link = {
+  from: string;
+  to: string;
+  value: number;
 };
 
 const stablecoins: Node[] = [
@@ -37,7 +43,7 @@ const collateral: Node[] = [
   { id: "mkr", label: "MKR", group: "collateral", color: "#84cc16" }
 ];
 
-const links = [
+const links: Link[] = [
   { from: "usdt", to: "t_bills", value: 20000 },
   { from: "usdt", to: "cash_bank", value: 10000 },
   { from: "usdc", to: "t_bills", value: 25000 },
@@ -54,12 +60,39 @@ const links = [
   { from: "paypal", to: "corp_bonds", value: 2000 }
 ];
 
+// Aggregate totals for each node
+const computeNodeTotals = (nodeId: string, isSource: boolean) => {
+  return links.reduce((sum, link) => {
+    if ((isSource && link.from === nodeId) || (!isSource && link.to === nodeId)) {
+      return sum + link.value;
+    }
+    return sum;
+  }, 0);
+};
+
 export default function Tools(): JSX.Element {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
-  const allNodes = [...stablecoins, ...collateral];
-  const getNode = (id: string) => allNodes.find((n) => n.id === id)!;
+  const totalHeight = 500;
+  const barWidth = 20;
+  const svgWidth = 960;
+  const nodeGap = 10;
 
-  const getY = (i: number, total: number) => 50 + i * (400 / total);
+  // Positioning helper
+  const layoutNodes = (nodes: Node[], isSource: boolean) => {
+    const total = nodes.reduce((sum, n) => sum + computeNodeTotals(n.id, isSource), 0);
+    let yOffset = 0;
+    return nodes.map((n) => {
+      const height = (computeNodeTotals(n.id, isSource) / total) * totalHeight;
+      const y = yOffset;
+      yOffset += height + nodeGap;
+      return { ...n, y, height };
+    });
+  };
+
+  const sourceNodes = layoutNodes(stablecoins, true);
+  const targetNodes = layoutNodes(collateral, false);
+
+  const getNodeById = (id: string) => [...sourceNodes, ...targetNodes].find(n => n.id === id)!;
 
   return (
     <Layout title="Stablecoin Collateral Tracker" description="Visualize stablecoin collateral flows.">
@@ -71,53 +104,52 @@ export default function Tools(): JSX.Element {
           </p>
         </div>
         <div className="tw-mt-12 tw-overflow-x-auto">
-          <svg width="900" height="550" className="tw-mx-auto tw-bg-white tw-rounded-lg tw-shadow-md">
-            {/* Arrows */}
+          <svg width={svgWidth} height={600} className="tw-mx-auto tw-bg-white tw-rounded-lg tw-shadow-md">
+            {/* Links */}
             {links.map((link, i) => {
-              const from = getNode(link.from);
-              const to = getNode(link.to);
-              const fromY = getY(stablecoins.findIndex(n => n.id === from.id), stablecoins.length);
-              const toY = getY(collateral.findIndex(n => n.id === to.id), collateral.length);
+              const from = getNodeById(link.from);
+              const to = getNodeById(link.to);
+              const fromX = 200 + barWidth;
+              const toX = 700;
+              const fromY = from.y + from.height / 2;
+              const toY = to.y + to.height / 2;
               const dim = selectedNode && !(link.from === selectedNode || link.to === selectedNode);
 
               return (
                 <g key={i}>
-                  <line
-                    x1={200} y1={fromY} x2={700} y2={toY}
-                    stroke={dim ? "#ddd" : "#888"}
+                  <path
+                    d={`M ${fromX} ${fromY} C ${(fromX + toX) / 2} ${fromY}, ${(fromX + toX) / 2} ${toY}, ${toX} ${toY}`}
+                    fill="none"
+                    stroke={dim ? "#ddd" : "#999"}
                     strokeWidth={Math.max(2, link.value / 5000)}
                     opacity={dim ? 0.2 : 0.8}
                   />
-                  <text x={(200 + 700) / 2} y={(fromY + toY) / 2 - 5} fontSize="10" textAnchor="middle" fill="#666">
+                  <text x={(fromX + toX) / 2} y={(fromY + toY) / 2 - 4} fontSize="10" textAnchor="middle" fill="#666">
                     {link.value.toLocaleString()}
                   </text>
                 </g>
               );
             })}
 
-            {/* Stablecoins */}
-            {stablecoins.map((node, i) => {
-              const y = getY(i, stablecoins.length);
-              const dim = selectedNode && node.id !== selectedNode && !links.some(l => l.from === selectedNode && l.to === node.id || l.from === node.id && l.to === selectedNode);
-              return (
-                <g key={node.id} onClick={() => setSelectedNode(selectedNode === node.id ? null : node.id)} style={{ cursor: "pointer" }}>
-                  <rect x={120} y={y - 20} width={40} height={40} fill={dim ? "#e5e7eb" : node.color} rx={6} />
-                  <text x={110} y={y + 5} textAnchor="end" fontSize="12" fill="#333">{node.label}</text>
-                </g>
-              );
-            })}
+            {/* Source Nodes */}
+            {sourceNodes.map((node, i) => (
+              <g key={node.id} onClick={() => setSelectedNode(selectedNode === node.id ? null : node.id)} style={{ cursor: "pointer" }}>
+                <rect x={180} y={node.y} width={barWidth} height={node.height} fill={node.color} rx={4} />
+                <text x={170} y={node.y + node.height / 2 + 4} textAnchor="end" fontSize="12" fill="#333">
+                  {node.label}
+                </text>
+              </g>
+            ))}
 
-            {/* Collateral */}
-            {collateral.map((node, i) => {
-              const y = getY(i, collateral.length);
-              const dim = selectedNode && node.id !== selectedNode && !links.some(l => l.from === selectedNode && l.to === node.id || l.from === node.id && l.to === selectedNode);
-              return (
-                <g key={node.id} onClick={() => setSelectedNode(selectedNode === node.id ? null : node.id)} style={{ cursor: "pointer" }}>
-                  <rect x={740} y={y - 20} width={40} height={40} fill={dim ? "#e5e7eb" : node.color} rx={6} />
-                  <text x={790} y={y + 5} textAnchor="start" fontSize="12" fill="#333">{node.label}</text>
-                </g>
-              );
-            })}
+            {/* Target Nodes */}
+            {targetNodes.map((node, i) => (
+              <g key={node.id} onClick={() => setSelectedNode(selectedNode === node.id ? null : node.id)} style={{ cursor: "pointer" }}>
+                <rect x={700} y={node.y} width={barWidth} height={node.height} fill={node.color} rx={4} />
+                <text x={730} y={node.y + node.height / 2 + 4} textAnchor="start" fontSize="12" fill="#333">
+                  {node.label}
+                </text>
+              </g>
+            ))}
           </svg>
         </div>
       </section>
