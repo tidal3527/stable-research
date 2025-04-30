@@ -1,115 +1,38 @@
-import React, { useState } from "react";
+import Layout from "@theme/Layout";
+import React from "react";
 
-type Node = {
-  id: string;
-  label: string;
-  x: number;
-  y: number;
-  color: string;
-};
-
-const stablecoins: Node[] = [
-  { id: "usdc", label: "USDC", x: 100, y: 60, color: "#10b981" },
-  { id: "usdt", label: "USDT", x: 100, y: 160, color: "#f97316" },
-  { id: "ethena", label: "Ethena", x: 100, y: 260, color: "#6366f1" },
-];
-
-const collateral: Node[] = [
-  { id: "t_bills", label: "T-Bills", x: 500, y: 100, color: "#3b82f6" },
-  { id: "cash", label: "Cash", x: 500, y: 220, color: "#f59e0b" },
-];
-
-const links = [
-  { from: "usdc", to: "t_bills" },
-  { from: "usdt", to: "cash" },
-  { from: "ethena", to: "t_bills" },
-];
-
-export default function App() {
-  const [selectedNode, setSelectedNode] = useState<string | null>(null);
-
-  const allNodes = [...stablecoins, ...collateral];
-  const getNode = (id: string) => allNodes.find((n) => n.id === id)!;
-
-  const bezierPath = (x1: number, y1: number, x2: number, y2: number) => {
-    const dx = (x2 - x1) * 0.6;
-    return `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
-  };
-
-  const isLinked = (nodeId: string, link: { from: string; to: string }) =>
-    link.from === nodeId || link.to === nodeId;
-
-  const isDimmed = (nodeId: string) => {
-    if (!selectedNode) return false;
-    if (nodeId === selectedNode) return false;
-    const connected = links.some((link) => isLinked(selectedNode, link) && isLinked(nodeId, link));
-    return !connected;
-  };
-
+export default function Contact(): JSX.Element {
   return (
-    <div style={{ padding: "2rem", textAlign: "center" }}>
-      <h1>Stablecoin Collateral Tracker (Interactive)</h1>
-      <p>Click a node to highlight its relationships</p>
-      <svg width="640" height="360" style={{ border: "1px solid #ddd" }}>
-        {/* Edges */}
-        {links.map((link, i) => {
-          const from = getNode(link.from);
-          const to = getNode(link.to);
-          const dim = selectedNode && !isLinked(selectedNode, link);
-          return (
-            <path
-              key={i}
-              d={bezierPath(from.x + 20, from.y, to.x - 20, to.y)}
-              fill="none"
-              stroke={dim ? "#ccc" : "#999"}
-              strokeWidth={dim ? 2 : 4}
-              opacity={dim ? 0.3 : 0.8}
-              markerEnd="url(#arrow)"
+    <Layout title="Contact Us" description="Get in touch with Stable Research">
+      <section className="tw-py-24 lg:tw-px-8">
+        <div className="tw-max-w-7xl tw-mx-auto lg:tw-grid lg:tw-grid-cols-2 lg:tw-gap-20 lg:tw-items-center">
+          <div className="tw-p-4">
+            <h2 className="tw-text-4xl lg:tw-text-5xl tw-mb-6 tw-font-extrabold">
+              Connect With Us
+            </h2>
+            <p className="tw-text-xl tw-text-gray-400">
+              We ae a global team of researchers, analysts, and stablecoin enthusiasts.
+            </p>
+            <p className="tw-text-xl tw-text-gray-400 tw-mt-4">
+              For general questions, business inquiries, or collaboration opportunities, contact {" "} 
+              <a href="https://www.linkedin.com/in/dasrahul29/" className="tw-text-emerald-500 tw-font-semibold">Rahul Das</a>, Lead Researcher, at
+            </p>
+            <p className="tw-text-xl tw-font-semibold tw-text-emerald-500 tw-mt-2">
+              rd [at] stableresearch [dot] xyz
+            </p>
+            <p className="tw-text-sm tw-text-gray-500 tw-mt-2 tw-italic">
+              Emails from the xyz domain may go to spam. Please check your inbox and spam folder.
+            </p>
+          </div>
+          <div className="tw-p-4">
+            <img
+              src=""
+              className="tw-block"
+              alt=""
             />
-          );
-        })}
-
-        {/* Nodes */}
-        {allNodes.map((node) => {
-          const dim = isDimmed(node.id);
-          return (
-            <g key={node.id} onClick={() => setSelectedNode(selectedNode === node.id ? null : node.id)} style={{ cursor: "pointer" }}>
-              <circle
-                cx={node.x}
-                cy={node.y}
-                r={20}
-                fill={dim ? "#e5e7eb" : node.color}
-                stroke={selectedNode === node.id ? "#111" : "none"}
-                strokeWidth={selectedNode === node.id ? 2 : 0}
-              />
-              <text
-                x={node.x}
-                y={node.y + 35}
-                fontSize="12"
-                textAnchor="middle"
-                fill={dim ? "#aaa" : "#333"}
-              >
-                {node.label}
-              </text>
-            </g>
-          );
-        })}
-
-        {/* Arrowhead */}
-        <defs>
-          <marker
-            id="arrow"
-            markerWidth="10"
-            markerHeight="10"
-            refX="6"
-            refY="3"
-            orient="auto"
-            markerUnits="strokeWidth"
-          >
-            <path d="M0,0 L0,6 L9,3 z" fill="#999" />
-          </marker>
-        </defs>
-      </svg>
-    </div>
+          </div>
+        </div>
+      </section>
+    </Layout>
   );
 }
