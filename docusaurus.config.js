@@ -112,7 +112,8 @@ const config = {
         items: [
           { to: "/docs", label: "Docs", position: "left"},
           { to: "/contact", label: "Contact", position: "left" },
-        
+          { to: "/tools", label: "Contact", position: "left" },
+          
           {
             to: "https://github.com/tidal3527/stable-research",
             label: "Github",
