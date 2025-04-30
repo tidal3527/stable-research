@@ -1,7 +1,7 @@
 import Layout from "@theme/Layout";
 import React from "react";
 
-export default function Contact(): JSX.Element {
+export default function Tools(): JSX.Element {
   return (
     <Layout title="Contact Us" description="Get in touch with Stable Research">
       <section className="tw-py-24 lg:tw-px-8">
