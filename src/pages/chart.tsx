@@ -1,170 +1,279 @@
-import React from "react";
+import flows from "../../static/stablecoin-flows.json";
+import React, { useMemo } from "react";
 import Layout from "@theme/Layout";
 import {
   ResponsiveSankey,
   SankeyLayerId,
 } from "@nivo/sankey";
-import flows from "../../static/stablecoin-flows.json";
 
-type FlowFile = typeof flows;
-
-interface NodeExtra {
-  type: string;
-  column: number;
-  id: string;
+export interface StablecoinRow {
+  id: string;          // e.g. "USDS"
+  name: string;        // "Sky USDS"
+  kind: "crypto" | "fiat";
+  total: number;
 }
 
-type MyNode = NodeExtra & {
-  x?: number;
-};
-
-interface LinkExtra {
-  source: string;
-  target: string;
-  value: number;
-  color: string;
+export interface CollateralRow {
+  id: string;          // e.g. "USTB"
+  label: string;       // "U.S. Treasury Bills"
+  class: "crypto" | "fiat";
 }
 
+export interface HoldingRow {
+  stablecoin: string;  // id of a stablecoin
+  collateral: string;  // id of a collateral asset
+  amount: number;
+}
+
+export interface FlowFileRel {
+  month: string;
+  stablecoins: StablecoinRow[];
+  collateral: CollateralRow[];
+  holdings: HoldingRow[];
+}
+
+
+interface NodeExtra { type: string; column: number; }
+type MyNode = NodeExtra & { x?: number };
+interface LinkExtra { source: string; target: string; value: number; color: string; }
 type MyLink = LinkExtra;
 
-interface OverlayRailsProps {
+function buildSankey(file: FlowFileRel) {
+  const SCALE = 1_000_000_000; // convert to “billions”
+
+  const nodes: MyNode[] = [
+    ...file.stablecoins.map(sc => ({
+      id: sc.name,
+      type: sc.kind === "crypto" ? "cryptoToken" : "fiatToken",
+      column: sc.kind === "crypto" ? 0 : 1
+    })),
+    ...file.collateral.map(c => ({
+      id: c.label,
+      type: c.class === "crypto" ? "cryptoCollateral" : "fiatCollateral",
+      column: 2
+    }))
+  ];
+
+  const scById = Object.fromEntries(file.stablecoins.map(s => [s.id, s] as const));
+  const colById = Object.fromEntries(file.collateral.map(c => [c.id, c] as const));
+
+  const links: MyLink[] = file.holdings.map(h => ({
+    source: scById[h.stablecoin].name,
+    target: colById[h.collateral].label,
+    // ↓↓↓ normalised thickness
+    value: h.amount / SCALE,
+    color: scById[h.stablecoin].kind === "crypto" ? "#ef4444" : "#3b82f6"
+  }));
+
+  nodes.forEach(n => (n.x = n.column * 240));
+  return { nodes, links };
+}
+
+/**
+ * ───────────  OVERLAY LAYER (guides + labels)  ───────────
+ */
+interface OverlayProps {
   width: number;
   height: number;
   nodes: MyNode[];
 }
 
-const OverlayRails = ({ width, height, nodes }: OverlayRailsProps) => {
-  // Find unique column values and their positions
-  const columnPositions = Array.from(new Set(nodes.map(n => n.column)))
-    .sort((a, b) => a - b)
-    .map(col => col * 240);
-  
+const OverlayRails: React.FC<OverlayProps> = ({ width, height, nodes }) => {
+  // group nodes by column for measurement
+  const columns = useMemo(() => {
+    const map: Record<number, MyNode[]> = {};
+    nodes.forEach((n) => {
+      if (!map[n.column]) map[n.column] = [];
+      map[n.column].push(n);
+    });
+    return map;
+  }, [nodes]);
+
+  // centre‑x per column ➜ divider x’s midway between
+  const centres = useMemo(() =>
+    Object.keys(columns)
+      .map(Number)
+      .sort((a, b) => a - b)
+      .map((col) => {
+        const xs = columns[col].map((n) => (n.x ?? 0) + 9); // nodeThickness/2
+        return xs.reduce((a, b) => a + b, 0) / xs.length;
+      }),
+  [columns]);
+
+  const vDividers = centres.slice(0, -1).map((c, i) => (c + centres[i + 1]) / 2);
+
+  // horizontal collateral split (top = fiat) – if we have both kinds
+  const collatNodes = (columns[2] ?? []).filter((n) =>
+    ["fiatCollateral", "cryptoCollateral"].includes(n.type)
+  );
+  const hasFiatCollat = collatNodes.some((n) => n.type === "fiatCollateral");
+  const hasCryptoCollat = collatNodes.some((n) => n.type === "cryptoCollateral");
+
+  let hDivider: number | null = null;
+  if (hasFiatCollat && hasCryptoCollat) {
+    const fiatBottom = Math.max(
+      ...collatNodes
+        .filter((n) => n.type === "fiatCollateral")
+        .map((n) => (n.y ?? 0) + (n.height ?? 0))
+    );
+    hDivider = fiatBottom + 6;
+  }
+
+  // —— RENDER ——
   return (
-    <g pointerEvents="none">
+    <g pointerEvents="none" fontFamily="Inter, sans-serif">
       {/* vertical rails */}
-      {columnPositions.slice(1, -1).map((pos, i) => (
-        <line 
-          key={i}
-          x1={pos} 
-          x2={pos} 
-          y1={0} 
+      {vDividers.map((x, i) => (
+        <line
+          key={`v-${i}`}
+          x1={x}
+          x2={x}
+          y1={0}
           y2={height}
-          stroke="#ffbe3b" 
-          strokeWidth={1} 
+          stroke="#ffbe3b"
+          strokeWidth={1}
         />
       ))}
 
-      <svg x={120} y={height + 4} width="120" height="40">
-        <text
-          x="60" y="25"
-          textAnchor="middle" fontWeight="bold" fill="white"
-          fontSize="18"
-          style={{ textTransform: 'uppercase' }}
-        >
-          Crypto backed
-        </text>
-      </svg>
+      {/* horizontal split in collateral column */}
+      {hDivider !== null && (
+        <line
+          x1={vDividers[vDividers.length - 1]}
+          x2={width}
+          y1={hDivider}
+          y2={hDivider}
+          stroke="#ffbe3b"
+          strokeWidth={1}
+        />
+      )}
+
+      {/* —————  LABELS  ————— */}
       <text
-        x={width - 120} y={height + 24}
-        textAnchor="middle" fontWeight="bold" fill="white"
+        x={centres[0]}
+        y={height + 28}
+        textAnchor="middle"
+        fontWeight={600}
+        fill="#ffffff"
+        fontSize={16}
       >
-        Crypto&nbsp;collateral
+        Crypto backed
       </text>
+
+      <text
+        x={centres[1]}
+        y={height + 28}
+        textAnchor="middle"
+        fontWeight={600}
+        fill="#ffffff"
+        fontSize={16}
+      >
+        Fiat backed tokens
+      </text>
+
+      {hDivider === null ? (
+        // only one collateral type present – label centre of column
+        <text
+          x={centres[2]}
+          y={height / 2}
+          textAnchor="middle"
+          fontWeight={600}
+          fill="#ffffff"
+          fontSize={16}
+        >
+          {hasFiatCollat ? "Fiat collateral" : "Crypto collateral"}
+        </text>
+      ) : (
+        // both present – split labels
+        <>
+          <text
+            x={centres[2]}
+            y={hDivider / 2}
+            textAnchor="middle"
+            fontWeight={600}
+            fill="#ffffff"
+            fontSize={16}
+          >
+            Fiat collateral
+          </text>
+          <text
+            x={centres[2]}
+            y={hDivider + (height - hDivider) / 2}
+            textAnchor="middle"
+            fontWeight={600}
+            fill="#ffffff"
+            fontSize={16}
+          >
+            Crypto collateral
+          </text>
+        </>
+      )}
     </g>
   );
 };
 
-function buildSankey(file: FlowFile) {
-  const nodes: MyNode[] = [];
-  const links: MyLink[] = [];
+const ABBREV: Record<string, string> = {
+  "U.S. Treasury Bills":           "UST Bills",
+  "Overnight Reverse Repurchase Agreements": "ON RRP",
+  "Term Reverse Repurchase Agreements":      "Term RRP",
+  "Money Market Funds":            "MM Funds",
+  "Cash & Bank Deposits":          "Cash/Bank",
+  "Non‑U.S. Treasury Bills":       "Non‑UST",
+  "Corporate Bonds":               "Corp Bonds",
+  "Precious Metals":               "Metals",
+  "Secured Loans":                 "Sec. Loans",
+  "Other Investments":             "Other Inv."
+  // add more if you like
+};
 
-  const addNode = (id: string, type: string, column: number) => {
-    if (!nodes.find((n) => n.id === id)) nodes.push({ id, type, column });
-  };
-
-  file.stablecoins.forEach((sc) => {
-    addNode(sc.name, sc.type, sc.column);
-
-    sc.collateral.forEach((col) => {
-      const meta = file.collateralMeta[col.name];
-      addNode(col.name, meta.type, meta.column);
-
-      links.push({
-        source: sc.name,
-        target: col.name,
-        value: col.amount,
-        color: sc.type === "cryptoToken" ? "#ef4444" : "#3b82f6",
-      });
-    });
-  });
-
-  /* lock node.x so crypto tokens = left, collat = right */
-  nodes.forEach((n) => (n.x = n.column * 240));
-
-  return { nodes, links };
-}
-// ------------------------------------------------
-
+/**
+ * ───────────  COMPONENT  ───────────
+ */
 export default function FlowPage() {
-  const { nodes, links } = buildSankey(flows);
+  const { nodes, links } = useMemo(() => buildSankey(flows), []);
 
   return (
-      <Layout title="Stablecoin Flow">
-        <main className="min-h-screen bg-gray-900 flex flex-col items-center pb-12 relative">
-          <h1 className="text-white text-3xl md:text-4xl font-semibold mt-10 mb-6">
-            Stablecoin Reserve Flows — {flows.month}
-          </h1>
-
-          {/* divider & category labels */}
-          <div className="absolute inset-y-0 left-1/2 w-px bg-blue-400/70 pointer-events-none" />
-          <span className="absolute left-4 bottom-10 text-white text-sm">
-            Crypto-backed tokens
-          </span>
-          <span className="absolute left-[55%] bottom-10 text-white text-sm">
-            Crypto collateral
-          </span>
-
-          <div className="w-full px-4 md:px-8" style={{ height: 520 }}>
-            <ResponsiveSankey
-              data={{ nodes, links }}
-              layout="horizontal"
-              sort="ascending"
-              margin={{ top: 40, right: 160, bottom: 40, left: 50 }}
-              align="justify"
-              nodeThickness={18}
-							layers={[
-								'links',
-								OverlayRails,
-								'nodes',
-								'labels',
-								'legends',
-							] as (SankeyLayerId)[]}
-              nodeSpacing={28}
-              nodeBorderWidth={1}
-              nodeBorderColor={{ from: "color", modifiers: [["darker", 0.8]] }}
-              nodeOpacity={1}
-              linkOpacity={0.45}
-              linkHoverOpacity={0.8}
-              linkHoverOthersOpacity={0.1}
-              linkBlendMode="multiply"
-              enableLinkGradient
-              labelPosition="outside"
-              labelOrientation="vertical"
-              labelPadding={16}
-              labelTextColor={{ from: "color", modifiers: [["darker", 1.6]] }}
-              theme={{
-                textColor: "#ffffff",
-                tooltip: {
-                  container: {
-                    background: "#111827",
-                    color: "#ffffff",
-                    fontSize: 12,
-                  },
+    <Layout title="Stablecoin Flow">
+      <main className="min-h-screen bg-gray-900 flex flex-col items-center pb-14 relative">
+        <div className="w-full h-full px-4 md:px-8" style={{ height: "calc(100vh - 100px)" }}>
+          <ResponsiveSankey
+            data={{ nodes, links }}
+            valueFormat={(v) => (v * 1_000_000_000).toLocaleString("en-US")}
+            layout="horizontal"
+            sort="ascending"
+            margin={{ top: 40, right: 160, bottom: 60, left: 50 }}
+            align="justify"
+            nodeThickness={18}
+            nodeSpacing={28}
+            nodeBorderWidth={1}
+            nodeBorderColor={{ from: "color", modifiers: [["darker", 0.8]] }}
+            nodeOpacity={1}
+            linkOpacity={0.45}
+            linkHoverOpacity={0.8}
+            linkHoverOthersOpacity={0.1}
+            linkBlendMode="multiply"
+            enableLinkGradient
+            // label={n => ABBREV[n.id] ?? n.id}   // shorten the wordy ones
+            labelPosition="inside"              // keeps text within the node bar
+            labelOrientation="horizontal"       // easier to read & less overlap
+            labelSkipWidth={40}                 // hide if node thinner than 40 px
+            labelSkipHeight={18}                // …or shorter than 18 px
+            enableLabels 
+            labelPadding={16}
+            labelTextColor="#ffffff"
+            layers={["links", OverlayRails, "nodes", "labels"] as SankeyLayerId[]}
+            theme={{
+              textColor: "#ffffff",
+              tooltip: {
+                container: {
+                  background: "#111827",
+                  color: "#ffffff",
+                  fontSize: 12,
                 },
-              }}
-            />
-          </div>
-        </main>
-      </Layout>
+              },
+            }}
+          />
+        </div>
+      </main>
+    </Layout>
   );
 }

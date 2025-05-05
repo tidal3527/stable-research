@@ -1,51 +1,106 @@
 {
-  "month": "2025-05",
+  "month": "2025‑05",
+
   "stablecoins": [
     {
-      "name": "Stablecoins",
-      "type": "category",
-      "column": 0,
-      "collateral": [
-        { "name": "Sky USDS", "amount": 10884892180 },
-        { "name": "Ethena USDe", "amount": 4670000000 }
-      ]
-    },
-    {
+      "id": "USDS",
       "name": "Sky USDS",
-      "type": "cryptoToken",
-      "column": 1,
-      "volume": 10884892180,
-      "collateral": [
-        { "name": "Circle USDC",  "amount": 3920489653 },
-        { "name": "ETH",          "amount": 885000000  },
-        { "name": "BTC",          "amount": 31000000   },
-        { "name": "MKR",          "amount": 214350000  },
-        { "name": "Spark Lending","amount": 4665282527 }
-      ]
+      "kind": "crypto",
+      "total": 10884892180
     },
     {
+      "id": "USDe",
       "name": "Ethena USDe",
-      "type": "cryptoToken",
-      "column": 1,
-      "volume": 4670000000,
-      "collateral": [
-        { "name": "Circle USDC", "amount": 3315700000 },
-        { "name": "ETH",         "amount": 467000000  },
-        { "name": "BTC",         "amount": 840600000  },
-        { "name": "SOL",         "amount": 46700000   }
-      ]
+      "kind": "crypto",
+      "total": 4670000000
+    },
+    {
+      "id": "USDT",
+      "name": "Tether USDT",
+      "kind": "fiat",
+      "total": 143704755548
+    },
+    {
+      "id": "USDC",
+      "name": "Circle USDC",
+      "kind": "fiat",
+      "total": 61275420496
+    },
+    {
+      "id": "FDUSD",
+      "name": "First Digital FDUSD",
+      "kind": "fiat",
+      "total": 2597128059
+    },
+    {
+      "id": "PYUSD",
+      "name": "PayPal PYUSD",
+      "kind": "fiat",
+      "total": 755514000
     }
   ],
 
-  "collateralMeta": {
-    "Stablecoins":  { "type": "category", "column": 0 },
-    "Sky USDS":     { "type": "cryptoToken", "column": 1 },
-    "Ethena USDe":  { "type": "cryptoToken", "column": 1 },
-    "Circle USDC":  { "type": "cryptoCollat", "column": 2 },
-    "ETH":          { "type": "cryptoCollat", "column": 2 },
-    "BTC":          { "type": "cryptoCollat", "column": 2 },
-    "MKR":          { "type": "cryptoCollat", "column": 2 },
-    "SOL":          { "type": "cryptoCollat", "column": 2 },
-    "Spark Lending":{ "type": "cryptoCollat", "column": 2 }
-  }
+  "collateral": [
+    { "id": "USTB", "label": "U.S. Treasury Bills", "class": "fiat" },
+    {
+      "id": "ONRRA",
+      "label": "Overnight Reverse Repurchase Agreements",
+      "class": "fiat"
+    },
+    {
+      "id": "TRRPA",
+      "label": "Term Reverse Repurchase Agreements",
+      "class": "fiat"
+    },
+    { "id": "MMF", "label": "Money Market Funds", "class": "fiat" },
+    { "id": "CASH", "label": "Cash & Bank Deposits", "class": "fiat" },
+    { "id": "NUTB", "label": "Non‑U.S. Treasury Bills", "class": "fiat" },
+    { "id": "CBOND", "label": "Corporate Bonds", "class": "fiat" },
+    { "id": "PMET", "label": "Precious Metals", "class": "fiat" },
+    { "id": "SLOAN", "label": "Secured Loans", "class": "fiat" },
+    { "id": "OINV", "label": "Other Investments", "class": "fiat" },
+
+    { "id": "USDC", "label": "Circle USDC", "class": "crypto" },
+    { "id": "ETH", "label": "ETH", "class": "crypto" },
+    { "id": "BTC", "label": "BTC", "class": "crypto" },
+    { "id": "MKR", "label": "MKR", "class": "crypto" },
+    { "id": "SOL", "label": "SOL", "class": "crypto" },
+    { "id": "SPARK", "label": "Spark Lending", "class": "crypto" }
+  ],
+
+  "holdings": [
+    { "stablecoin": "USDS", "collateral": "USTB", "amount": 1168770000 },
+    { "stablecoin": "USDS", "collateral": "USDC", "amount": 3920489653 },
+    { "stablecoin": "USDS", "collateral": "ETH", "amount": 885000000 },
+    { "stablecoin": "USDS", "collateral": "BTC", "amount": 31000000 },
+    { "stablecoin": "USDS", "collateral": "MKR", "amount": 214350000 },
+    { "stablecoin": "USDS", "collateral": "SPARK", "amount": 4665282527 },
+
+    { "stablecoin": "USDe", "collateral": "USDC", "amount": 3315700000 },
+    { "stablecoin": "USDe", "collateral": "ETH", "amount": 467000000 },
+    { "stablecoin": "USDe", "collateral": "BTC", "amount": 840600000 },
+    { "stablecoin": "USDe", "collateral": "SOL", "amount": 46700000 },
+
+    { "stablecoin": "USDT", "collateral": "USTB", "amount": 94471513482 },
+    { "stablecoin": "USDT", "collateral": "ONRRA", "amount": 14410623125 },
+    { "stablecoin": "USDT", "collateral": "TRRPA", "amount": 3076862521 },
+    { "stablecoin": "USDT", "collateral": "MMF", "amount": 6508747641 },
+    { "stablecoin": "USDT", "collateral": "CASH", "amount": 106506780 },
+    { "stablecoin": "USDT", "collateral": "NUTB", "amount": 71004520 },
+    { "stablecoin": "USDT", "collateral": "CBOND", "amount": 14370476625 },
+    { "stablecoin": "USDT", "collateral": "PMET", "amount": 5317075955 },
+    { "stablecoin": "USDT", "collateral": "SLOAN", "amount": 8191171066 },
+    { "stablecoin": "USDT", "collateral": "OINV", "amount": 3980621729 },
+    { "stablecoin": "USDT", "collateral": "BTC", "amount": 7860650128 },
+
+    { "stablecoin": "USDC", "collateral": "USTB", "amount": 24481830581 },
+    { "stablecoin": "USDC", "collateral": "ONRRA", "amount": 2986300000 },
+    { "stablecoin": "USDC", "collateral": "CASH", "amount": 6930589915 },
+
+    { "stablecoin": "FDUSD", "collateral": "ONRRA", "amount": 1740592189 },
+    { "stablecoin": "FDUSD", "collateral": "CASH", "amount": 786135870 },
+
+    { "stablecoin": "PYUSD", "collateral": "ONRRA", "amount": 729955000 },
+    { "stablecoin": "PYUSD", "collateral": "CASH", "amount": 25559000 }
+  ]
 }
