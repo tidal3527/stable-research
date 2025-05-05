@@ -1,0 +1,51 @@
+{
+  "month": "2025-05",
+  "stablecoins": [
+    {
+      "name": "Stablecoins",
+      "type": "category",
+      "column": 0,
+      "collateral": [
+        { "name": "Sky USDS", "amount": 10884892180 },
+        { "name": "Ethena USDe", "amount": 4670000000 }
+      ]
+    },
+    {
+      "name": "Sky USDS",
+      "type": "cryptoToken",
+      "column": 1,
+      "volume": 10884892180,
+      "collateral": [
+        { "name": "Circle USDC",  "amount": 3920489653 },
+        { "name": "ETH",          "amount": 885000000  },
+        { "name": "BTC",          "amount": 31000000   },
+        { "name": "MKR",          "amount": 214350000  },
+        { "name": "Spark Lending","amount": 4665282527 }
+      ]
+    },
+    {
+      "name": "Ethena USDe",
+      "type": "cryptoToken",
+      "column": 1,
+      "volume": 4670000000,
+      "collateral": [
+        { "name": "Circle USDC", "amount": 3315700000 },
+        { "name": "ETH",         "amount": 467000000  },
+        { "name": "BTC",         "amount": 840600000  },
+        { "name": "SOL",         "amount": 46700000   }
+      ]
+    }
+  ],
+
+  "collateralMeta": {
+    "Stablecoins":  { "type": "category", "column": 0 },
+    "Sky USDS":     { "type": "cryptoToken", "column": 1 },
+    "Ethena USDe":  { "type": "cryptoToken", "column": 1 },
+    "Circle USDC":  { "type": "cryptoCollat", "column": 2 },
+    "ETH":          { "type": "cryptoCollat", "column": 2 },
+    "BTC":          { "type": "cryptoCollat", "column": 2 },
+    "MKR":          { "type": "cryptoCollat", "column": 2 },
+    "SOL":          { "type": "cryptoCollat", "column": 2 },
+    "Spark Lending":{ "type": "cryptoCollat", "column": 2 }
+  }
+}
