@@ -1,4 +1,4 @@
-import flows from "../../static/stablecoin-flows.json";
+import data from "../../static/stablecoin-flows.json";
 import React, { useMemo } from "react";
 import Layout from "@theme/Layout";
 import {
@@ -37,37 +37,6 @@ interface NodeExtra { type: string; column: number; }
 type MyNode = NodeExtra & { x?: number };
 interface LinkExtra { source: string; target: string; value: number; color: string; }
 type MyLink = LinkExtra;
-
-function buildSankey(file: FlowFileRel) {
-  const SCALE = 1_000_000_000; // convert to “billions”
-
-  const nodes: MyNode[] = [
-    ...file.stablecoins.map(sc => ({
-      id: sc.name,
-      type: sc.kind === "crypto" ? "cryptoToken" : "fiatToken",
-      column: sc.kind === "crypto" ? 0 : 1
-    })),
-    ...file.collateral.map(c => ({
-      id: c.label,
-      type: c.class === "crypto" ? "cryptoCollateral" : "fiatCollateral",
-      column: 2
-    }))
-  ];
-
-  const scById = Object.fromEntries(file.stablecoins.map(s => [s.id, s] as const));
-  const colById = Object.fromEntries(file.collateral.map(c => [c.id, c] as const));
-
-  const links: MyLink[] = file.holdings.map(h => ({
-    source: scById[h.stablecoin].name,
-    target: colById[h.collateral].label,
-    // ↓↓↓ normalised thickness
-    value: h.amount / SCALE,
-    color: scById[h.stablecoin].kind === "crypto" ? "#ef4444" : "#3b82f6"
-  }));
-
-  nodes.forEach(n => (n.x = n.column * 240));
-  return { nodes, links };
-}
 
 /**
  * ───────────  OVERLAY LAYER (guides + labels)  ───────────
@@ -130,8 +99,8 @@ const OverlayRails: React.FC<OverlayProps> = ({ width, height, nodes }) => {
           x2={x}
           y1={0}
           y2={height}
-          stroke="#ffbe3b"
-          strokeWidth={1}
+          stroke="#8a97cf"
+          strokeWidth={2}
         />
       ))}
 
@@ -142,7 +111,7 @@ const OverlayRails: React.FC<OverlayProps> = ({ width, height, nodes }) => {
           x2={width}
           y1={hDivider}
           y2={hDivider}
-          stroke="#ffbe3b"
+          stroke="#8a97cf"
           strokeWidth={1}
         />
       )}
@@ -229,14 +198,13 @@ const ABBREV: Record<string, string> = {
  * ───────────  COMPONENT  ───────────
  */
 export default function FlowPage() {
-  const { nodes, links } = useMemo(() => buildSankey(flows), []);
 
   return (
     <Layout title="Stablecoin Flow">
       <main className="min-h-screen bg-gray-900 flex flex-col items-center pb-14 relative">
         <div className="w-full h-full px-4 md:px-8" style={{ height: "calc(100vh - 100px)" }}>
           <ResponsiveSankey
-            data={{ nodes, links }}
+            data={data}
             valueFormat={(v) => (v * 1_000_000_000).toLocaleString("en-US")}
             layout="horizontal"
             sort="ascending"
