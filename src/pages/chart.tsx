@@ -7,7 +7,76 @@ import data from "../../static/stablecoin-flows.json";
 // Register Chart.js components
 Chart.register(...registerables, SankeyController, Flow);
 
-// Define types for our data structure
+const sankeyAnnotations = {
+  id: "sankeyAnnotations",
+  afterDraw(chart: Chart) {
+    const {
+      ctx,
+      chartArea: { left, right, top, bottom, width },
+    } = chart;
+
+    ctx.save();
+
+    /* ──────────── vertical guide lines ──────────── */
+    ctx.strokeStyle = "rgba(255,255,255,.10)";
+    ctx.lineWidth = 1;
+    [0.25, 0.6, 0.8].forEach((pct) => {
+      const x = left + width * pct;
+      ctx.beginPath();
+      ctx.moveTo(x, top);
+      ctx.lineTo(x, bottom);
+      ctx.stroke();
+    });
+
+    /* ──────────── category labels ──────────── */
+    ctx.fillStyle = "#fff";
+    ctx.font = "600 18px Inter,Arial,sans-serif"; // bigger / bold
+    ctx.textBaseline = "top";
+
+    ctx.textAlign = "left";
+    ctx.fillText("Crypto Backed tokens", left + 20, top + 10);
+
+    ctx.textAlign = "center";
+    ctx.fillText("Fiat Backed tokens", left + width * 0.25, top + 10);
+
+    ctx.textAlign = "left";
+    ctx.fillText("Fiat collateral", left + width * 0.6 + 12, top + 10);
+
+    ctx.textAlign = "right";
+    ctx.fillText("Crypto collateral", right - 20, top + 10);
+
+    ctx.restore();
+  },
+};
+
+Chart.register(sankeyAnnotations);
+
+const sankeyHoverFocus = {
+  id: 'sankeyHoverFocus',
+  afterEvent(chart, args) {
+    // Only one dataset, so we can be concise
+    const meta   = chart.getDatasetMeta(0);
+    const active = chart.getActiveElements().map(a => a.element);
+
+    // Desired opacities
+    const IN_FOCUS  = 0.6;   // original look
+    const FADED_OUT = 0.1;   // almost transparent
+
+    meta.data.forEach(el => {
+      // Flow elements share one options object - clone on first run
+      if (!el.$originalAlpha) el.$originalAlpha = el.options.alpha ?? IN_FOCUS;
+
+      el.options.alpha = active.length === 0     // nothing hovered → restore
+        ? el.$originalAlpha
+        : active.includes(el) ? IN_FOCUS : FADED_OUT;
+    });
+
+    chart.draw();            // redraw immediately (no animation needed)
+  }
+};
+
+Chart.register(sankeyHoverFocus);
+
 interface Node {
   id: string;
   kind: string;
@@ -20,58 +89,10 @@ interface Link {
   value: number;
 }
 
-interface SankeyData {
-  month: string;
-  nodes: Node[];
-  links: Link[];
-}
-
 const StablecoinSankey: React.FC = () => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  // Function to add category labels and grid lines
-  const addCategoryLabels = () => {
-    const canvas = chartRef.current;
-    if (!canvas || !containerRef.current) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Get container dimensions
-    const containerWidth = containerRef.current.clientWidth;
-    const containerHeight = containerRef.current.clientHeight;
-
-    // Draw vertical grid lines
-    const columnPositions = [0.25, 0.5, 0.75]; // Relative positions
-    columnPositions.forEach(pos => {
-      const x = containerWidth * pos;
-      ctx.beginPath();
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
-      ctx.lineWidth = 1;
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, containerHeight);
-      ctx.stroke();
-    });
-    
-    // Add category labels with proper positioning
-    ctx.fillStyle = "white";
-    ctx.font = "18px Arial"; // Larger text
-    
-    // Right side labels
-    ctx.textAlign = "right";
-    ctx.fillText("Crypto collateral", containerWidth - 20, containerHeight - 20);
-    
-    // Left side labels
-    ctx.textAlign = "left";
-    ctx.fillText("Crypto Backed tokens", 20, containerHeight - 20);
-    
-    // Middle labels
-    ctx.textAlign = "center";
-    ctx.fillText("Fiat Backed tokens", containerWidth * 0.25, containerHeight - 20);
-    ctx.fillText("Fiat collateral", containerWidth * 0.75, containerHeight - 20);
-  };
 
   useEffect(() => {
     // Helper function to get shorter node names
@@ -132,7 +153,7 @@ const StablecoinSankey: React.FC = () => {
         "#0369a1", // Blue
         "#2563eb", // Royal blue
         "#4f46e5", // Indigo
-      ]
+      ],
     };
 
     // Map of already assigned colors to keep consistency
@@ -141,7 +162,7 @@ const StablecoinSankey: React.FC = () => {
       cryptoToken: 0,
       fiatToken: 0,
       fiatCollateral: 0,
-      cryptoCollateral: 0
+      cryptoCollateral: 0,
     };
 
     // Generate color based on node kind, not specific name
@@ -155,21 +176,23 @@ const StablecoinSankey: React.FC = () => {
       if (!node) return "#888888";
 
       // Get the next color from the appropriate palette
-      const palette = colorPalettes[node.kind as keyof typeof colorPalettes] || colorPalettes.cryptoToken;
+      const palette =
+        colorPalettes[node.kind as keyof typeof colorPalettes] ||
+        colorPalettes.cryptoToken;
       const colorIndex = kindColorCounters[node.kind] % palette.length;
       const color = palette[colorIndex];
-      
+
       // Increment counter for this kind
       kindColorCounters[node.kind]++;
-      
+
       // Store assigned color
       assignedColors[nodeId] = color;
-      
+
       return color;
     };
 
     // Pre-assign colors to all nodes to ensure consistency
-    data.nodes.forEach(node => {
+    data.nodes.forEach((node) => {
       getNodeColor(node.id);
     });
 
@@ -179,13 +202,23 @@ const StablecoinSankey: React.FC = () => {
       datasets: [
         {
           label: "Stablecoin Flows",
+          color: "#ffffff",
+          font: {
+            size: 13,
+            weight: "500",
+          },
           data: data.links.map((link) => ({
             from: link.source,
             to: link.target,
             flow: link.value / 1000000000, // Convert to billions
           })),
-          colorFrom: (c: any) => getNodeColor(c.dataset.data[c.dataIndex].from),
-          colorTo: (c: any) => getNodeColor(c.dataset.data[c.dataIndex].to),
+          colorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
+          colorTo: (c) => getNodeColor(c.dataset.data[c.dataIndex].to),
+          hoverColorFrom: (c) =>
+            getNodeColor(c.dataset.data[c.dataIndex].from),
+          hoverColorTo: (c) =>
+            getNodeColor(c.dataset.data[c.dataIndex].to),
+
           colorMode: "gradient",
           alpha: 0.6, // More transparent for the glow effect
           labels: data.nodes.reduce((acc, node) => {
@@ -207,7 +240,7 @@ const StablecoinSankey: React.FC = () => {
             return acc;
           }, {} as Record<string, number>),
           // Size to determine how to handle overlap
-          size: 'max', // Better handling of flow overlap
+          size: "max", // Better handling of flow overlap
         },
       ],
     };
@@ -224,17 +257,16 @@ const StablecoinSankey: React.FC = () => {
         // Clear the canvas with dark background
         ctx.fillStyle = "#111827"; // Dark gray background similar to Nivo
         ctx.fillRect(0, 0, chartRef.current.width, chartRef.current.height);
-        
         chartInstanceRef.current = new Chart(ctx, {
           type: "sankey",
-          data: chartData,
+          data: chartData as any,
           options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
               tooltip: {
                 callbacks: {
-                  label: (context: any) => {
+                  label: (context) => {
                     const data = context.dataset.data[context.dataIndex];
                     const from = getShortenedName(data.from);
                     const to = getShortenedName(data.to);
@@ -242,25 +274,16 @@ const StablecoinSankey: React.FC = () => {
                     return `${from} → ${to}: $${value} billion`;
                   },
                 },
-                backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                backgroundColor: "rgba(0, 0, 0, 0.8)",
                 titleFont: {
                   size: 14,
-                  color: 'white'
                 },
                 bodyFont: {
                   size: 13,
-                  color: 'white'
-                }
+                },
               },
               legend: {
                 display: false,
-              },
-            },
-            animation: {
-              duration: 500,
-              onComplete: () => {
-                // Draw category labels after animation completes
-                addCategoryLabels();
               },
             },
             layout: {
@@ -268,9 +291,9 @@ const StablecoinSankey: React.FC = () => {
                 top: 20,
                 right: 120, // More space for right labels
                 bottom: 50, // More space for bottom labels
-                left: 20
-              }
-            }
+                left: 20,
+              },
+            },
           },
         });
       }
@@ -287,17 +310,20 @@ const StablecoinSankey: React.FC = () => {
   return (
     <Layout title="Stablecoin Flow">
       <main className="min-h-screen bg-gray-900 flex flex-col items-center pb-14 relative">
-        <div className="w-full px-4 md:px-8" style={{ height: "calc(100vh - 100px)" }}>
-          <div 
+        <div
+          className="w-full px-4 md:px-8"
+          style={{ height: "calc(100vh - 100px)" }}
+        >
+          <div
             ref={containerRef}
-            className="stablecoin-sankey" 
-            style={{ 
-              width: "100%", 
+            className="stablecoin-sankey"
+            style={{
+              width: "100%",
               height: "calc(100vh - 250px)",
               backgroundColor: "#111827", // Dark background
               borderRadius: "8px",
               padding: "12px",
-              position: "relative"
+              position: "relative",
             }}
           >
             <canvas ref={chartRef} />
