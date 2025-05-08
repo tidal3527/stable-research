@@ -7,21 +7,21 @@ import {
 } from "@nivo/sankey";
 
 export interface StablecoinRow {
-  id: string;          // e.g. "USDS"
-  name: string;        // "Sky USDS"
+  id: string;  
+  name: string;
   kind: "crypto" | "fiat";
   total: number;
 }
 
 export interface CollateralRow {
-  id: string;          // e.g. "USTB"
-  label: string;       // "U.S. Treasury Bills"
+  id: string;
+  label: string;
   class: "crypto" | "fiat";
 }
 
 export interface HoldingRow {
-  stablecoin: string;  // id of a stablecoin
-  collateral: string;  // id of a collateral asset
+  stablecoin: string;
+  collateral: string;
   amount: number;
 }
 
@@ -180,32 +180,15 @@ const OverlayRails: React.FC<OverlayProps> = ({ width, height, nodes }) => {
   );
 };
 
-const ABBREV: Record<string, string> = {
-  "U.S. Treasury Bills":           "UST Bills",
-  "Overnight Reverse Repurchase Agreements": "ON RRP",
-  "Term Reverse Repurchase Agreements":      "Term RRP",
-  "Money Market Funds":            "MM Funds",
-  "Cash & Bank Deposits":          "Cash/Bank",
-  "Non‑U.S. Treasury Bills":       "Non‑UST",
-  "Corporate Bonds":               "Corp Bonds",
-  "Precious Metals":               "Metals",
-  "Secured Loans":                 "Sec. Loans",
-  "Other Investments":             "Other Inv."
-  // add more if you like
-};
-
-/**
- * ───────────  COMPONENT  ───────────
- */
 export default function FlowPage() {
 
   return (
     <Layout title="Stablecoin Flow">
       <main className="min-h-screen bg-gray-900 flex flex-col items-center pb-14 relative">
-        <div className="w-full h-full px-4 md:px-8" style={{ height: "calc(100vh - 100px)" }}>
+        <div className="w-full px-4 md:px-8" style={{ height: "calc(100vh - 100px)" }}>
           <ResponsiveSankey
             data={data}
-            valueFormat={(v) => (v * 1_000_000_000).toLocaleString("en-US")}
+            valueFormat={(v) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(v)}
             layout="horizontal"
             sort="ascending"
             margin={{ top: 40, right: 160, bottom: 60, left: 50 }}
@@ -220,11 +203,8 @@ export default function FlowPage() {
             linkHoverOthersOpacity={0.1}
             linkBlendMode="multiply"
             enableLinkGradient
-            // label={n => ABBREV[n.id] ?? n.id}   // shorten the wordy ones
-            labelPosition="inside"              // keeps text within the node bar
-            labelOrientation="horizontal"       // easier to read & less overlap
-            labelSkipWidth={40}                 // hide if node thinner than 40 px
-            labelSkipHeight={18}                // …or shorter than 18 px
+            labelPosition="inside"
+            labelOrientation="horizontal"
             enableLabels 
             labelPadding={16}
             labelTextColor="#ffffff"
