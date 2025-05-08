@@ -3,16 +3,10 @@
   "nodes": [
     { "id": "Sky USDS", "kind": "cryptoToken", "column": 0 },
     { "id": "Ethena USDe", "kind": "cryptoToken", "column": 0 },
-
-    { "id": "DummySourceForTether", "kind": "dummy", "column": 0 },
-    { "id": "DummySourceForFDUSD", "kind": "dummy", "column": 0 },
-    { "id": "DummySourceForPYUSD", "kind": "dummy", "column": 0 },
-
     { "id": "Tether USDT", "kind": "fiatToken", "column": 1 },
     { "id": "Circle USDC", "kind": "fiatToken", "column": 1 },
     { "id": "First Digital FDUSD", "kind": "fiatToken", "column": 1 },
     { "id": "PayPal PYUSD", "kind": "fiatToken", "column": 1 },
-
     { "id": "U.S. Treasury Bills", "kind": "fiatCollateral", "column": 2 },
     { "id": "Overnight Reverse Repurchase Agreements", "kind": "fiatCollateral", "column": 2 },
     { "id": "Term Reverse Repurchase Agreements", "kind": "fiatCollateral", "column": 2 },
@@ -23,7 +17,6 @@
     { "id": "Precious Metals", "kind": "fiatCollateral", "column": 2 },
     { "id": "Secured Loans", "kind": "fiatCollateral", "column": 2 },
     { "id": "Other Investments", "kind": "fiatCollateral", "column": 2 },
-
     { "id": "ETH", "kind": "cryptoCollateral", "column": 2 },
     { "id": "BTC", "kind": "cryptoCollateral", "column": 2 },
     { "id": "MKR", "kind": "cryptoCollateral", "column": 2 },
@@ -37,13 +30,10 @@
     { "source": "Sky USDS", "target": "BTC", "value": 31000000 },
     { "source": "Sky USDS", "target": "MKR", "value": 214350000 },
     { "source": "Sky USDS", "target": "Spark Lending", "value": 4665282527 },
-
     { "source": "Ethena USDe", "target": "Circle USDC", "value": 3315700000 },
     { "source": "Ethena USDe", "target": "ETH", "value": 467000000 },
     { "source": "Ethena USDe", "target": "BTC", "value": 840600000 },
     { "source": "Ethena USDe", "target": "SOL", "value": 46700000 },
-
-    { "source": "DummySourceForTether", "target": "Tether USDT", "value": 0.00001 },
     { "source": "Tether USDT", "target": "U.S. Treasury Bills", "value": 94471513482 },
     { "source": "Tether USDT", "target": "Overnight Reverse Repurchase Agreements", "value": 14410623125 },
     { "source": "Tether USDT", "target": "Term Reverse Repurchase Agreements", "value": 3076862521 },
@@ -55,16 +45,11 @@
     { "source": "Tether USDT", "target": "Secured Loans", "value": 8191171066 },
     { "source": "Tether USDT", "target": "Other Investments", "value": 3980621729 },
     { "source": "Tether USDT", "target": "BTC", "value": 7860650128 },
-
     { "source": "Circle USDC", "target": "U.S. Treasury Bills", "value": 24481830581 },
     { "source": "Circle USDC", "target": "Overnight Reverse Repurchase Agreements", "value": 2986300000 },
     { "source": "Circle USDC", "target": "Cash & Bank Deposits", "value": 6930589915 },
-
-    { "source": "DummySourceForFDUSD", "target": "First Digital FDUSD", "value": 0.00001 },
     { "source": "First Digital FDUSD", "target": "Overnight Reverse Repurchase Agreements", "value": 1740592189 },
     { "source": "First Digital FDUSD", "target": "Cash & Bank Deposits", "value": 786135870 },
-
-    { "source": "DummySourceForPYUSD", "target": "PayPal PYUSD", "value": 0.00001 },
     { "source": "PayPal PYUSD", "target": "Overnight Reverse Repurchase Agreements", "value": 729955000 },
     { "source": "PayPal PYUSD", "target": "Cash & Bank Deposits", "value": 25559000 }
   ]

@@ -26,6 +26,8 @@
     "@nivo/tooltip": "^0.79.0",
     "algoliasearch": "^5.20.3",
     "autoprefixer": "^10.4.7",
+    "chart.js": "^4.4.9",
+    "chartjs-chart-sankey": "^0.14.0",
     "clsx": "^1.1.1",
     "fuse.js": "^6.6.2",
     "instantsearch.css": "^8.5.1",
