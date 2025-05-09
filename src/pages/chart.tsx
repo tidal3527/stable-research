@@ -8,9 +8,9 @@ import data from "../../static/stablecoin-flows.json";
 Chart.register(...registerables, SankeyController, Flow);
 
 /* universal spacing */
-const PAD_X   = 16;    // inside-box horizontal padding
-const PAD_Y   = 8;    // inside-box vertical   padding
-const OUTSET  = 24;   // distance of any label from the chart edge
+const PAD_X = 16; // inside-box horizontal padding
+const PAD_Y = 8; // inside-box vertical   padding
+const OUTSET = 24; // distance of any label from the chart edge
 
 const sankeyAnnotations = {
   id: "sankeyAnnotations",
@@ -23,12 +23,12 @@ const sankeyAnnotations = {
     /* ─── helper: draws a 1- or 2-line boxed label with uniform margins ─── */
     function drawBox({
       ctx,
-      lines,              // ['Fiat', 'collateral']  OR  ['Crypto Backed tokens']
+      lines, // ['Fiat', 'collateral']  OR  ['Crypto Backed tokens']
       anchorX,
       anchorY,
-      align,              // 'left' | 'center' | 'right'
-      baseline,           // 'top'  | 'bottom'
-      stroke
+      align, // 'left' | 'center' | 'right'
+      baseline, // 'top'  | 'bottom'
+      stroke,
     }: {
       ctx: CanvasRenderingContext2D;
       lines: string[];
@@ -39,39 +39,42 @@ const sankeyAnnotations = {
       stroke: string;
     }) {
       ctx.save();
-      ctx.textAlign    = align;
-      ctx.textBaseline = 'top';
-      ctx.font         = '600 18px Inter,Arial,sans-serif';
-      ctx.fillStyle    = '#ffffff';
+      ctx.textAlign = align;
+      ctx.textBaseline = "top";
+      ctx.font = "600 18px Inter,Arial,sans-serif";
+      ctx.fillStyle = "#ffffff";
 
       /* measure each line */
-      const metrics   = lines.map(l => ctx.measureText(l));
-      const txtW      = Math.max(...metrics.map(m => m.width));
-      const lineH     = metrics[0].actualBoundingBoxAscent + metrics[0].actualBoundingBoxDescent;
-      const lineGap   = lines.length > 1 ? 4 : 0;           // gap between lines
-      const txtH      = lines.length * lineH + lineGap;
+      const metrics = lines.map((l) => ctx.measureText(l));
+      const txtW = Math.max(...metrics.map((m) => m.width));
+      const lineH =
+        metrics[0].actualBoundingBoxAscent +
+        metrics[0].actualBoundingBoxDescent;
+      const lineGap = lines.length > 1 ? 4 : 0; // gap between lines
+      const txtH = lines.length * lineH + lineGap;
 
       /* shift anchor down if baseline === 'bottom' */
-      const anchorYAdj = baseline === 'bottom' ? anchorY - txtH : anchorY;
+      const anchorYAdj = baseline === "bottom" ? anchorY - txtH : anchorY;
 
       /* compute box top-left */
       const boxLeft =
-        align === 'left'   ? anchorX                       - PAD_X :
-        align === 'right'  ? anchorX - txtW                - PAD_X :
-                             anchorX - txtW / 2            - PAD_X;
+        align === "left"
+          ? anchorX - PAD_X
+          : align === "right"
+          ? anchorX - txtW - PAD_X
+          : anchorX - txtW / 2 - PAD_X;
 
-      const boxTop  = anchorYAdj - PAD_Y;
+      const boxTop = anchorYAdj - PAD_Y;
 
       /* draw rectangle */
       ctx.strokeStyle = stroke;
-      ctx.lineWidth   = 2;
+      ctx.lineWidth = 2;
       ctx.strokeRect(boxLeft, boxTop, txtW + PAD_X * 2, txtH + PAD_Y * 2);
 
       /* render lines */
       lines.forEach((line, idx) =>
-        ctx.fillText(line,
-                     anchorX,
-                     anchorYAdj + idx * (lineH + lineGap)));
+        ctx.fillText(line, anchorX, anchorYAdj + idx * (lineH + lineGap))
+      );
       ctx.restore();
     }
 
@@ -87,46 +90,47 @@ const sankeyAnnotations = {
     });
 
     /* 1️⃣  bottom labels (centred horizontally) */
-    const COL1 = 1 / 3, COL2 = 2 / 3;
+    const COL1 = 1 / 3,
+      COL2 = 2 / 3;
     drawBox({
       ctx,
-      lines: ['Crypto-backed tokens'],
+      lines: ["Crypto-backed tokens"],
       anchorX: left + width * (COL1 / 2),
       anchorY: bottom - OUTSET,
-      align:   'center',
-      baseline:'bottom',
-      stroke:  '#f97316'
+      align: "center",
+      baseline: "bottom",
+      stroke: "#f97316",
     });
 
     drawBox({
       ctx,
-      lines: ['Fiat-backed tokens'],
+      lines: ["Fiat-backed tokens"],
       anchorX: left + width * ((COL1 + COL2) / 2),
       anchorY: bottom - OUTSET,
-      align:   'center',
-      baseline:'bottom',
-      stroke:  '#f97316'
+      align: "center",
+      baseline: "bottom",
+      stroke: "#f97316",
     });
 
     /* 2️⃣  right-hand labels in the gutter */
     drawBox({
       ctx,
-      lines: ['Fiat', 'Collateral'],
+      lines: ["Fiat", "Collateral"],
       anchorX: right + 30 + OUTSET,
       anchorY: top + OUTSET,
-      align:   'left',
-      baseline:'top',
-      stroke:  '#f97316'
+      align: "left",
+      baseline: "top",
+      stroke: "#f97316",
     });
 
     drawBox({
       ctx,
-      lines: ['Crypto', 'Collateral'],
+      lines: ["Crypto", "Collateral"],
       anchorX: right + 30 + OUTSET,
       anchorY: bottom - OUTSET,
-      align:   'left',
-      baseline:'bottom',
-      stroke:  '#0ea5e9'
+      align: "left",
+      baseline: "bottom",
+      stroke: "#0ea5e9",
     });
   },
 };
@@ -281,9 +285,18 @@ const StablecoinSankey: React.FC = () => {
       getNodeColor(node.id);
     });
 
-    // Prepare chart data
+    const columnOf = (kind: string) =>
+      ({
+        cryptoToken: 0,
+        fiatToken: 1,
+        fiatCollateral: 2,
+        cryptoCollateral: 2,
+      }[kind] ?? 0);
+
     const chartData = {
-      labels: data.nodes.map((node) => getShortenedName(node.id)),
+      /* 1️⃣  node labels (use .display if the user supplied it) */
+      labels: data.nodes.map((n) => getShortenedName(n.display ?? n.id)),
+
       datasets: [
         {
           label: "Stablecoin Flows",
@@ -292,38 +305,31 @@ const StablecoinSankey: React.FC = () => {
             size: 13,
             weight: "500",
           },
-          data: data.links.map((link) => ({
-            from: link.source,
-            to: link.target,
-            flow: link.value / 1000000000, // Convert to billions
+
+          /* 2️⃣  convert billions → raw dollars (or whatever scale you pick) */
+          data: data.links.map((l) => ({
+            from: l.source,
+            to: l.target,
+            flow: l.value,
           })),
+
           colorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
           colorTo: (c) => getNodeColor(c.dataset.data[c.dataIndex].to),
           hoverColorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
           hoverColorTo: (c) => getNodeColor(c.dataset.data[c.dataIndex].to),
-
           colorMode: "gradient",
-          alpha: 0.6, // More transparent for the glow effect
-          labels: data.nodes.reduce((acc, node) => {
-            acc[node.id] = getShortenedName(node.id);
+          alpha: 0.6,
+
+          /* 4️⃣  tell the Sankey which column each node belongs in */
+          column: data.nodes.reduce((acc, n) => {
+            acc[n.id] = columnOf(n.kind);
+            return acc;
+          }, {} as Record<string, number>),
+
+          labels: data.nodes.reduce((acc, n) => {
+            acc[n.id] = getShortenedName(n.display ?? n.id);
             return acc;
           }, {} as Record<string, string>),
-          // Set column for each node
-          column: data.nodes.reduce((acc, node) => {
-            acc[node.id] = node.column;
-            return acc;
-          }, {} as Record<string, number>),
-          // Adjust node ordering within columns
-          priority: data.nodes.reduce((acc, node) => {
-            // Set priority based on node kind to group them nicely
-            if (node.kind === "cryptoToken") acc[node.id] = 1;
-            else if (node.kind === "fiatToken") acc[node.id] = 2;
-            else if (node.kind === "fiatCollateral") acc[node.id] = 3;
-            else if (node.kind === "cryptoCollateral") acc[node.id] = 4;
-            return acc;
-          }, {} as Record<string, number>),
-          // Size to determine how to handle overlap
-          size: "max", // Better handling of flow overlap
         },
       ],
     };
@@ -403,7 +409,7 @@ const StablecoinSankey: React.FC = () => {
             style={{
               width: "100%",
               height: "calc(100vh - 150px)",
-              backgroundColor: "#111827", 
+              backgroundColor: "#111827",
               borderRadius: "8px",
               padding: "12px",
               position: "relative",
