@@ -1,8 +1,0 @@
-
-Possible to include 3 columns?
-
-JSON for uploading data
-
-Good, maintainable code. Especially if you want to add more coins and such.
-
-A week from Friday.
