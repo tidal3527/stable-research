@@ -8,15 +8,14 @@ import data from "../../static/stablecoin-flows.json";
 Chart.register(...registerables, SankeyController, Flow);
 
 const sankeyAnnotations = {
-  id: 'sankeyAnnotations',
+  id: "sankeyAnnotations",
   afterDraw(chart) {
     const {
       ctx,
-      chartArea: { left, right, top, bottom, width, height },
-      width: canvasW    // full canvas width (includes our new gutter)
+      chartArea: { left, right, top, bottom, width },
     } = chart;
 
-    const GUTTER_X = right + 60;     // 20 px into the gutter
+    const GUTTER_X = right + 60; // 20 px into the gutter
 
     /* helper to draw a two-line boxed label */
     const drawTwoLineBox = (
@@ -26,39 +25,49 @@ const sankeyAnnotations = {
       align: CanvasTextAlign,
       stroke: string
     ) => {
-      ctx.textAlign     = align;
-      ctx.textBaseline  = 'top';
-      ctx.fillStyle     = '#ffffff';
-      ctx.font          = '600 18px Inter,Arial,sans-serif';
+      ctx.textAlign = align;
+      ctx.textBaseline = "top";
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "600 18px Inter,Arial,sans-serif";
 
       const [l1, l2] = lines;
       const m1 = ctx.measureText(l1);
       const m2 = ctx.measureText(l2);
       const txtW = Math.max(m1.width, m2.width);
-      const txtH = m1.actualBoundingBoxAscent + m1.actualBoundingBoxDescent +
-                   m2.actualBoundingBoxAscent + m2.actualBoundingBoxDescent +
-                   4;                       // 4 px line-gap
+      const txtH =
+        m1.actualBoundingBoxAscent +
+        m1.actualBoundingBoxDescent +
+        m2.actualBoundingBoxAscent +
+        m2.actualBoundingBoxDescent +
+        4; // 4 px line-gap
 
-      const padX = 8, padY = 4;
+      const padX = 8,
+        padY = 4;
       const boxLeft =
-        align === 'left'  ? x - padX :
-        align === 'right' ? x - txtW - padX :
-                            x - txtW / 2 - padX;
+        align === "left"
+          ? x - padX
+          : align === "right"
+          ? x - txtW - padX
+          : x - txtW / 2 - padX;
 
       ctx.strokeStyle = stroke;
-      ctx.lineWidth   = 2;
+      ctx.lineWidth = 2;
       ctx.strokeRect(boxLeft, y - padY, txtW + padX * 2, txtH + padY * 2);
 
       ctx.fillText(l1, x, y);
-      ctx.fillText(l2, x, y + m1.actualBoundingBoxAscent + m1.actualBoundingBoxDescent + 4);
+      ctx.fillText(
+        l2,
+        x,
+        y + m1.actualBoundingBoxAscent + m1.actualBoundingBoxDescent + 4
+      );
     };
 
     ctx.save();
 
     /* ── vertical guides (unchanged) ── */
-    ctx.strokeStyle = 'rgba(96,165,250,.4)';
-    ctx.lineWidth   = 1;
-    [0.333, 0.666].forEach(pct => {
+    ctx.strokeStyle = "rgba(96,165,250,.4)";
+    ctx.lineWidth = 1;
+    [0.333, 0.666].forEach((pct) => {
       const x = left + width * pct;
       ctx.beginPath();
       ctx.moveTo(x, top);
@@ -66,46 +75,70 @@ const sankeyAnnotations = {
       ctx.stroke();
     });
 
+    /* ── bottom-row boxed labels – now percentage-based ── */
+    const COL1 = 1 / 3; // first guide line (≈ 33 %)
+    const COL2 = 2 / 3; // second guide line (≈ 66 %)
+
+    /* mid-point between 0 % and 33 %  →  0.5 * 0.333 = 0.1665 */
+    const xCryptoBacked = left + width * (COL1 / 2);
+
+    /* mid-point between 33 % and 66 % → 0.333 + 0.1665 = 0.4995 */
+    const xFiatBacked = left + width * ((COL1 + COL2) / 2);
+
     /* ── bottom-row boxed labels (unchanged) ── */
     const drawBottomBox = (txt: string, x: number, stroke: string) =>
-      drawTwoLineBox([txt, ''], x, bottom - 30, 'center', stroke); // y = bottom-30 keeps it outside data
+      drawTwoLineBox([txt, ""], x, bottom - 30, "center", stroke); // y = bottom-30 keeps it outside data
 
-    drawBottomBox('Crypto Backed tokens', left + 80, '#f97316');
-    drawBottomBox('Fiat Backed tokens',   left + width * 0.333, '#f97316');
+    drawBottomBox("Crypto Backed tokens", xCryptoBacked, "#f97316");
+    drawBottomBox("Fiat Backed tokens", xFiatBacked, "#f97316");
 
     /* ── NEW: right-side boxed labels in gutter ── */
-    drawTwoLineBox(['Fiat',   'Collateral'],  GUTTER_X, top  + 10,   'left',  '#f97316');
-    drawTwoLineBox(['Crypto', 'Collateral'],  GUTTER_X, bottom - 50, 'left',  '#0ea5e9');
+    drawTwoLineBox(
+      ["Fiat", "Collateral"],
+      GUTTER_X,
+      top + 10,
+      "left",
+      "#f97316"
+    );
+    drawTwoLineBox(
+      ["Crypto", "Collateral"],
+      GUTTER_X,
+      bottom - 50,
+      "left",
+      "#0ea5e9"
+    );
 
     ctx.restore();
-  }
+  },
 };
 
 Chart.register(sankeyAnnotations);
 
-
 const sankeyHoverFocus = {
-  id: 'sankeyHoverFocus',
+  id: "sankeyHoverFocus",
   afterEvent(chart, args) {
     // Only one dataset, so we can be concise
-    const meta   = chart.getDatasetMeta(0);
-    const active = chart.getActiveElements().map(a => a.element);
+    const meta = chart.getDatasetMeta(0);
+    const active = chart.getActiveElements().map((a) => a.element);
 
     // Desired opacities
-    const IN_FOCUS  = 0.6;   // original look
-    const FADED_OUT = 0.1;   // almost transparent
+    const IN_FOCUS = 0.6; // original look
+    const FADED_OUT = 0.1; // almost transparent
 
-    meta.data.forEach(el => {
+    meta.data.forEach((el) => {
       // Flow elements share one options object - clone on first run
       if (!el.$originalAlpha) el.$originalAlpha = el.options.alpha ?? IN_FOCUS;
 
-      el.options.alpha = active.length === 0     // nothing hovered → restore
-        ? el.$originalAlpha
-        : active.includes(el) ? IN_FOCUS : FADED_OUT;
+      el.options.alpha =
+        active.length === 0 // nothing hovered → restore
+          ? el.$originalAlpha
+          : active.includes(el)
+          ? IN_FOCUS
+          : FADED_OUT;
     });
 
-    chart.draw();            // redraw immediately (no animation needed)
-  }
+    chart.draw(); // redraw immediately (no animation needed)
+  },
 };
 
 Chart.register(sankeyHoverFocus);
@@ -247,10 +280,8 @@ const StablecoinSankey: React.FC = () => {
           })),
           colorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
           colorTo: (c) => getNodeColor(c.dataset.data[c.dataIndex].to),
-          hoverColorFrom: (c) =>
-            getNodeColor(c.dataset.data[c.dataIndex].from),
-          hoverColorTo: (c) =>
-            getNodeColor(c.dataset.data[c.dataIndex].to),
+          hoverColorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
+          hoverColorTo: (c) => getNodeColor(c.dataset.data[c.dataIndex].to),
 
           colorMode: "gradient",
           alpha: 0.6, // More transparent for the glow effect
