@@ -281,7 +281,7 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
 
     const chartData = {
       /* 1️⃣  node labels (use .display if the user supplied it) */
-      labels: data.nodes.map((n) => getShortenedName(n.display ?? n.id)),
+      labels: data.nodes.map((n) => getShortenedName(n.displayName ?? n.id)),
 
       datasets: [
         {
@@ -325,7 +325,7 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
           }, {} as Record<string, number>),
 
           labels: data.nodes.reduce((acc, n) => {
-            acc[n.id] = getShortenedName(n.display ?? n.id);
+            acc[n.id] = getShortenedName(n.displayName ?? n.id);
             return acc;
           }, {} as Record<string, string>),
         },

@@ -1,70 +1,70 @@
 {
   "month": "2025-05",
   "nodes": [
-    { "id": "Sky USDS", "kind": "cryptoToken", "display": "USDS" },
-    { "id": "Ethena USDe", "kind": "cryptoToken", "display": "USDe" },
-    { "id": "Tether USDT", "kind": "fiatToken", "display": "USDT" },
-    { "id": "Circle USDC", "kind": "fiatToken", "display": "USDC" },
-    { "id": "First Digital FDUSD", "kind": "fiatToken", "display": "FDUSD" },
-    { "id": "PayPal PYUSD", "kind": "fiatToken", "display": "PYUSD" },
+    { "id": "Sky USDS", "kind": "cryptoToken", "displayName": "USDS" },
+    { "id": "Ethena USDe", "kind": "cryptoToken", "displayName": "USDe" },
+    { "id": "Tether USDT", "kind": "fiatToken", "displayName": "USDT" },
+    { "id": "Circle USDC", "kind": "fiatToken", "displayName": "USDC" },
+    { "id": "First Digital FDUSD", "kind": "fiatToken", "displayName": "FDUSD" },
+    { "id": "PayPal PYUSD", "kind": "fiatToken", "displayName": "PYUSD" },
     {
       "id": "U.S. Treasury Bills",
       "kind": "fiatCollateral",
-      "display": "U.S. Treasury Bills"
+      "displayName": "U.S. Treasury Bills"
     },
     {
       "id": "Overnight Reverse Repurchase Agreements",
       "kind": "fiatCollateral",
-      "display": "Overnight Reverse Repurchase Agreements"
+      "displayName": "Overnight Reverse Repurchase Agreements"
     },
     {
       "id": "Term Reverse Repurchase Agreements",
       "kind": "fiatCollateral",
-      "display": "Term Reverse Repurchase Agreements"
+      "displayName": "Term Reverse Repurchase Agreements"
     },
     {
       "id": "Money Market Funds",
       "kind": "fiatCollateral",
-      "display": "Money Market Funds"
+      "displayName": "Money Market Funds"
     },
     {
       "id": "Cash & Bank Deposits",
       "kind": "fiatCollateral",
-      "display": "Cash & Bank Deposits"
+      "displayName": "Cash & Bank Deposits"
     },
     {
       "id": "Non‑U.S. Treasury Bills",
       "kind": "fiatCollateral",
-      "display": "Non-U.S. T-Bills"
+      "displayName": "Non-U.S. T-Bills"
     },
     {
       "id": "Corporate Bonds",
       "kind": "fiatCollateral",
-      "display": "Corporate Bonds"
+      "displayName": "Corporate Bonds"
     },
     {
       "id": "Precious Metals",
       "kind": "fiatCollateral",
-      "display": "Precious Metals"
+      "displayName": "Precious Metals"
     },
     {
       "id": "Secured Loans",
       "kind": "fiatCollateral",
-      "display": "Secured Loans"
+      "displayName": "Secured Loans"
     },
     {
       "id": "Other Investments",
       "kind": "fiatCollateral",
-      "display": "Other Investments"
+      "displayName": "Other Investments"
     },
-    { "id": "ETH", "kind": "cryptoCollateral", "display": "ETH" },
-    { "id": "BTC", "kind": "cryptoCollateral", "display": "BTC" },
-    { "id": "MKR", "kind": "cryptoCollateral", "display": "MKR" },
-    { "id": "SOL", "kind": "cryptoCollateral", "display": "SOL" },
+    { "id": "ETH", "kind": "cryptoCollateral", "displayName": "ETH" },
+    { "id": "BTC", "kind": "cryptoCollateral", "displayName": "BTC" },
+    { "id": "MKR", "kind": "cryptoCollateral", "displayName": "MKR" },
+    { "id": "SOL", "kind": "cryptoCollateral", "displayName": "SOL" },
     {
       "id": "Spark Lending",
       "kind": "cryptoCollateral",
-      "display": "Spark Lending"
+      "displayName": "Spark Lending"
     }
   ],
   "links": [
