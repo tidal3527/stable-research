@@ -298,7 +298,7 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
           data: data.links.map((l) => ({
             from: l.source,
             to: l.target,
-            flow: l.value,
+            flow: l.value / 1000000000, // Convert to billions
           })),
 
           colorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
