@@ -301,6 +301,16 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
             flow: l.value / 1000000000, // Convert to billions
           })),
 
+          priority: data.nodes.reduce((acc, n) => {
+            acc[n.id] =
+              n.kind === 'cryptoToken'      ? 1 :   // left-column tokens
+              n.kind === 'fiatToken'        ? 2 :   // middle-column tokens
+              n.kind === 'fiatCollateral'   ? 3 :   // fiat collateral (top of col 2)
+                                                 4; // crypto collateral (bottom of col 2)
+            return acc;
+          }, {} as Record<string, number>),
+
+
           colorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
           colorTo: (c) => getNodeColor(c.dataset.data[c.dataIndex].to),
           hoverColorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
@@ -421,7 +431,7 @@ export default function ChartPage() {
   return (
     <StablecoinSankey
       topNote="Stablecoin reserve flows – May 2025"
-      bottomNote="Bottom text"
+      bottomNote="Source: issuer attestations – billions of USD"
     />
   );
 }
