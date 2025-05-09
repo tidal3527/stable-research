@@ -8,45 +8,81 @@ import data from "../../static/stablecoin-flows.json";
 Chart.register(...registerables, SankeyController, Flow);
 
 const sankeyAnnotations = {
-  id: "sankeyAnnotations",
-  afterDraw(chart: Chart) {
+  id: 'sankeyAnnotations',
+  afterDraw(chart) {
     const {
       ctx,
-      chartArea: { left, right, top, bottom, width },
+      chartArea: { left, right, top, bottom, width }
     } = chart;
 
     ctx.save();
 
-    /* ──────────── vertical guide lines ──────────── */
-    ctx.strokeStyle = "rgba(255,255,255,.10)";
-    ctx.lineWidth = 1;
-    [0.25, 0.6, 0.8].forEach((pct) => {
-      const x = left + width * pct;
+    /* ─────────────────── vertical guides (unchanged) ─────────────────── */
+    ctx.strokeStyle = 'rgba(0,191,255)';  // bright blue with some transparency
+    ctx.lineWidth   = 1.5;
+    [0.33, 0.66].forEach(p => {
+      const x = left + width * p;
       ctx.beginPath();
       ctx.moveTo(x, top);
       ctx.lineTo(x, bottom);
       ctx.stroke();
     });
 
-    /* ──────────── category labels ──────────── */
-    ctx.fillStyle = "#fff";
-    ctx.font = "600 18px Inter,Arial,sans-serif"; // bigger / bold
-    ctx.textBaseline = "top";
+    /* ─────────────────── top-row labels (unchanged) ──────────────────── */
+    ctx.fillStyle   = '#ffffff';
+    ctx.font        = '600 18px Inter,Arial,sans-serif';
+    ctx.textBaseline = 'top';
 
-    ctx.textAlign = "left";
-    ctx.fillText("Crypto Backed tokens", left + 20, top + 10);
+    ctx.textAlign = 'left';
+    ctx.fillText('Fiat collateral', left + width * 0.60 + 12, top + 10);
 
-    ctx.textAlign = "center";
-    ctx.fillText("Fiat Backed tokens", left + width * 0.25, top + 10);
+    ctx.textAlign = 'right';
+    ctx.fillText('Crypto collateral', right - 20, top + 10);
 
-    ctx.textAlign = "left";
-    ctx.fillText("Fiat collateral", left + width * 0.6 + 12, top + 10);
+    /* ─────────────────── bottom-row labels WITH ORANGE BOX ───────────── */
+    ctx.textBaseline = 'bottom';
+    const padX = 8;           // horizontal padding inside the box
+    const padY = 4;           // vertical padding  inside the box
+    const boxStroke = '#f97316';
 
-    ctx.textAlign = "right";
-    ctx.fillText("Crypto collateral", right - 20, top + 10);
+    const bottomLabels = [
+      { txt: 'Crypto Backed tokens', x: left + 20,          align: 'left'   },
+      { txt: 'Fiat Backed tokens',   x: left + width * 0.6, align: 'center'}
+    ];
+
+    bottomLabels.forEach(({ txt, x, align }) => {
+      ctx.textAlign = align;
+
+      // Measure text to size the box
+      const metrics = ctx.measureText(txt);
+      const txtW = metrics.width;
+      const txtH = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
+
+      // Anchor point for text and box
+      const y = bottom - 10;      // 10 px up from the chart's bottom edge
+
+      // Draw orange outline rectangle
+      const boxLeft =
+        align === 'left'   ? x - padX * 2 :  // Doubled padding
+        align === 'right'  ? x - txtW - padX * 2 :
+                             x - txtW / 2 - padX * 2;
+
+      ctx.strokeStyle = boxStroke;
+      ctx.lineWidth   = 2;
+      ctx.strokeRect(
+        boxLeft,
+        y - txtH - padY * 2,  // Doubled vertical padding
+        txtW + padX * 4,      // Doubled horizontal padding
+        txtH + padY * 4       // Doubled vertical padding
+      );
+
+      // Draw text itself
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(txt, x, y);
+    });
 
     ctx.restore();
-  },
+  }
 };
 
 Chart.register(sankeyAnnotations);
