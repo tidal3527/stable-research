@@ -4,6 +4,9 @@ import { SankeyController, Flow } from "chartjs-chart-sankey";
 import Layout from "@theme/Layout";
 import data from "../../static/stablecoin-flows.json";
 
+const isMobile = () =>
+  typeof window !== "undefined" && window.innerWidth <= 640;
+
 Chart.register(...registerables, SankeyController, Flow);
 
 const PAD_X = 16; // inside-box horizontal padding
@@ -13,6 +16,7 @@ const OUTSET = 24; // distance of any label from the chart edge
 const sankeyAnnotations = {
   id: "sankeyAnnotations",
   afterDraw(chart) {
+    if (isMobile()) return; // ← early-out, nothing drawn
     const {
       ctx,
       chartArea: { left, right, top, bottom, width },
@@ -376,7 +380,7 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
             layout: {
               padding: {
                 top: 20,
-                right: 180, // More space for right labels
+                right: isMobile() ? 20 : 180, // ← 20 px on mobile, 180 on desktop
                 bottom: 50, // More space for bottom labels
                 left: 20,
               },
