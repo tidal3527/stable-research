@@ -12,80 +12,77 @@ const sankeyAnnotations = {
   afterDraw(chart) {
     const {
       ctx,
-      chartArea: { left, right, top, bottom, width }
+      chartArea: { left, right, top, bottom, width, height },
+      width: canvasW    // full canvas width (includes our new gutter)
     } = chart;
+
+    const GUTTER_X = right + 60;     // 20 px into the gutter
+
+    /* helper to draw a two-line boxed label */
+    const drawTwoLineBox = (
+      lines: [string, string],
+      x: number,
+      y: number,
+      align: CanvasTextAlign,
+      stroke: string
+    ) => {
+      ctx.textAlign     = align;
+      ctx.textBaseline  = 'top';
+      ctx.fillStyle     = '#ffffff';
+      ctx.font          = '600 18px Inter,Arial,sans-serif';
+
+      const [l1, l2] = lines;
+      const m1 = ctx.measureText(l1);
+      const m2 = ctx.measureText(l2);
+      const txtW = Math.max(m1.width, m2.width);
+      const txtH = m1.actualBoundingBoxAscent + m1.actualBoundingBoxDescent +
+                   m2.actualBoundingBoxAscent + m2.actualBoundingBoxDescent +
+                   4;                       // 4 px line-gap
+
+      const padX = 8, padY = 4;
+      const boxLeft =
+        align === 'left'  ? x - padX :
+        align === 'right' ? x - txtW - padX :
+                            x - txtW / 2 - padX;
+
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth   = 2;
+      ctx.strokeRect(boxLeft, y - padY, txtW + padX * 2, txtH + padY * 2);
+
+      ctx.fillText(l1, x, y);
+      ctx.fillText(l2, x, y + m1.actualBoundingBoxAscent + m1.actualBoundingBoxDescent + 4);
+    };
 
     ctx.save();
 
-    /* ─────────────────── vertical guides (unchanged) ─────────────────── */
-    ctx.strokeStyle = 'rgba(0,191,255)';  // bright blue with some transparency
-    ctx.lineWidth   = 1.5;
-    [0.33, 0.66].forEach(p => {
-      const x = left + width * p;
+    /* ── vertical guides (unchanged) ── */
+    ctx.strokeStyle = 'rgba(96,165,250,.4)';
+    ctx.lineWidth   = 1;
+    [0.333, 0.666].forEach(pct => {
+      const x = left + width * pct;
       ctx.beginPath();
       ctx.moveTo(x, top);
       ctx.lineTo(x, bottom);
       ctx.stroke();
     });
 
-    /* ─────────────────── top-row labels (unchanged) ──────────────────── */
-    ctx.fillStyle   = '#ffffff';
-    ctx.font        = '600 18px Inter,Arial,sans-serif';
-    ctx.textBaseline = 'top';
+    /* ── bottom-row boxed labels (unchanged) ── */
+    const drawBottomBox = (txt: string, x: number, stroke: string) =>
+      drawTwoLineBox([txt, ''], x, bottom - 30, 'center', stroke); // y = bottom-30 keeps it outside data
 
-    ctx.textAlign = 'left';
-    ctx.fillText('Fiat collateral', left + width * 0.60 + 12, top + 10);
+    drawBottomBox('Crypto Backed tokens', left + 80, '#f97316');
+    drawBottomBox('Fiat Backed tokens',   left + width * 0.333, '#f97316');
 
-    ctx.textAlign = 'right';
-    ctx.fillText('Crypto collateral', right - 20, top + 10);
-
-    /* ─────────────────── bottom-row labels WITH ORANGE BOX ───────────── */
-    ctx.textBaseline = 'bottom';
-    const padX = 8;           // horizontal padding inside the box
-    const padY = 4;           // vertical padding  inside the box
-    const boxStroke = '#f97316';
-
-    const bottomLabels = [
-      { txt: 'Crypto Backed tokens', x: left + 20,          align: 'left'   },
-      { txt: 'Fiat Backed tokens',   x: left + width * 0.6, align: 'center'}
-    ];
-
-    bottomLabels.forEach(({ txt, x, align }) => {
-      ctx.textAlign = align;
-
-      // Measure text to size the box
-      const metrics = ctx.measureText(txt);
-      const txtW = metrics.width;
-      const txtH = metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent;
-
-      // Anchor point for text and box
-      const y = bottom - 10;      // 10 px up from the chart's bottom edge
-
-      // Draw orange outline rectangle
-      const boxLeft =
-        align === 'left'   ? x - padX * 2 :  // Doubled padding
-        align === 'right'  ? x - txtW - padX * 2 :
-                             x - txtW / 2 - padX * 2;
-
-      ctx.strokeStyle = boxStroke;
-      ctx.lineWidth   = 2;
-      ctx.strokeRect(
-        boxLeft,
-        y - txtH - padY * 2,  // Doubled vertical padding
-        txtW + padX * 4,      // Doubled horizontal padding
-        txtH + padY * 4       // Doubled vertical padding
-      );
-
-      // Draw text itself
-      ctx.fillStyle = '#ffffff';
-      ctx.fillText(txt, x, y);
-    });
+    /* ── NEW: right-side boxed labels in gutter ── */
+    drawTwoLineBox(['Fiat',   'Collateral'],  GUTTER_X, top  + 10,   'left',  '#f97316');
+    drawTwoLineBox(['Crypto', 'Collateral'],  GUTTER_X, bottom - 50, 'left',  '#0ea5e9');
 
     ctx.restore();
   }
 };
 
 Chart.register(sankeyAnnotations);
+
 
 const sankeyHoverFocus = {
   id: 'sankeyHoverFocus',
@@ -325,7 +322,7 @@ const StablecoinSankey: React.FC = () => {
             layout: {
               padding: {
                 top: 20,
-                right: 120, // More space for right labels
+                right: 180, // More space for right labels
                 bottom: 50, // More space for bottom labels
                 left: 20,
               },
