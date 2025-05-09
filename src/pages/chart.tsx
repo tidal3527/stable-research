@@ -4,10 +4,8 @@ import { SankeyController, Flow } from "chartjs-chart-sankey";
 import Layout from "@theme/Layout";
 import data from "../../static/stablecoin-flows.json";
 
-// Register Chart.js components
 Chart.register(...registerables, SankeyController, Flow);
 
-/* universal spacing */
 const PAD_X = 16; // inside-box horizontal padding
 const PAD_Y = 8; // inside-box vertical   padding
 const OUTSET = 24; // distance of any label from the chart edge
@@ -20,7 +18,6 @@ const sankeyAnnotations = {
       chartArea: { left, right, top, bottom, width },
     } = chart;
 
-    /* ─── helper: draws a 1- or 2-line boxed label with uniform margins ─── */
     function drawBox({
       ctx,
       lines, // ['Fiat', 'collateral']  OR  ['Crypto Backed tokens']
@@ -166,27 +163,18 @@ const sankeyHoverFocus = {
 
 Chart.register(sankeyHoverFocus);
 
-interface Node {
-  id: string;
-  kind: string;
-  column: number;
+interface Props {
+  topNote?: string; // optional
+  bottomNote?: string; // optional
 }
 
-interface Link {
-  source: string;
-  target: string;
-  value: number;
-}
-
-const StablecoinSankey: React.FC = () => {
+const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstanceRef = useRef<Chart | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Helper function to get shorter node names
     const getShortenedName = (fullName: string): string => {
-      // Map full names to shorter display names
       const nameMap: Record<string, string> = {
         "Sky USDS": "USDS",
         "Ethena USDe": "USDe",
@@ -399,18 +387,20 @@ const StablecoinSankey: React.FC = () => {
   return (
     <Layout title="Stablecoin Flow">
       <main className="min-h-screen bg-gray-900 flex flex-col items-center pb-14 relative">
-        <div
-          className="w-full px-4 md:px-8"
-          style={{ height: "calc(100vh - 100px)" }}
-        >
+        {topNote && (
+          <h2 className="py-6 tw-m-2 text-center text-2xl font-bold leading-tight mx-auto max-w-3xl">
+            {topNote}
+          </h2>
+        )}
+
+        <div className="flex-1 w-full px-4 md:px-8 flex items-stretch">
           <div
             ref={containerRef}
-            className="stablecoin-sankey"
+            className="stablecoin-sankey flex-1"
             style={{
-              width: "100%",
-              height: "calc(100vh - 150px)",
               backgroundColor: "#111827",
               borderRadius: "8px",
+              height: "calc(100vh - 150px)",
               padding: "12px",
               position: "relative",
             }}
@@ -418,9 +408,20 @@ const StablecoinSankey: React.FC = () => {
             <canvas ref={chartRef} />
           </div>
         </div>
+
+        {bottomNote && (
+          <h3 className="tw-px-6 tw-py-2 text-center text-lg">{bottomNote}</h3>
+        )}
       </main>
     </Layout>
   );
 };
 
-export default StablecoinSankey;
+export default function ChartPage() {
+  return (
+    <StablecoinSankey
+      topNote="Stablecoin reserve flows – May 2025"
+      bottomNote="Bottom text"
+    />
+  );
+}
