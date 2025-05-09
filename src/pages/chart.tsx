@@ -7,6 +7,11 @@ import data from "../../static/stablecoin-flows.json";
 // Register Chart.js components
 Chart.register(...registerables, SankeyController, Flow);
 
+/* universal spacing */
+const PAD_X   = 16;    // inside-box horizontal padding
+const PAD_Y   = 8;    // inside-box vertical   padding
+const OUTSET  = 24;   // distance of any label from the chart edge
+
 const sankeyAnnotations = {
   id: "sankeyAnnotations",
   afterDraw(chart) {
@@ -15,54 +20,60 @@ const sankeyAnnotations = {
       chartArea: { left, right, top, bottom, width },
     } = chart;
 
-    const GUTTER_X = right + 60; // 20 px into the gutter
+    /* ─── helper: draws a 1- or 2-line boxed label with uniform margins ─── */
+    function drawBox({
+      ctx,
+      lines,              // ['Fiat', 'collateral']  OR  ['Crypto Backed tokens']
+      anchorX,
+      anchorY,
+      align,              // 'left' | 'center' | 'right'
+      baseline,           // 'top'  | 'bottom'
+      stroke
+    }: {
+      ctx: CanvasRenderingContext2D;
+      lines: string[];
+      anchorX: number;
+      anchorY: number;
+      align: CanvasTextAlign;
+      baseline: CanvasTextBaseline;
+      stroke: string;
+    }) {
+      ctx.save();
+      ctx.textAlign    = align;
+      ctx.textBaseline = 'top';
+      ctx.font         = '600 18px Inter,Arial,sans-serif';
+      ctx.fillStyle    = '#ffffff';
 
-    /* helper to draw a two-line boxed label */
-    const drawTwoLineBox = (
-      lines: [string, string],
-      x: number,
-      y: number,
-      align: CanvasTextAlign,
-      stroke: string
-    ) => {
-      ctx.textAlign = align;
-      ctx.textBaseline = "top";
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "600 18px Inter,Arial,sans-serif";
+      /* measure each line */
+      const metrics   = lines.map(l => ctx.measureText(l));
+      const txtW      = Math.max(...metrics.map(m => m.width));
+      const lineH     = metrics[0].actualBoundingBoxAscent + metrics[0].actualBoundingBoxDescent;
+      const lineGap   = lines.length > 1 ? 4 : 0;           // gap between lines
+      const txtH      = lines.length * lineH + lineGap;
 
-      const [l1, l2] = lines;
-      const m1 = ctx.measureText(l1);
-      const m2 = ctx.measureText(l2);
-      const txtW = Math.max(m1.width, m2.width);
-      const txtH =
-        m1.actualBoundingBoxAscent +
-        m1.actualBoundingBoxDescent +
-        m2.actualBoundingBoxAscent +
-        m2.actualBoundingBoxDescent +
-        4; // 4 px line-gap
+      /* shift anchor down if baseline === 'bottom' */
+      const anchorYAdj = baseline === 'bottom' ? anchorY - txtH : anchorY;
 
-      const padX = 8,
-        padY = 4;
+      /* compute box top-left */
       const boxLeft =
-        align === "left"
-          ? x - padX
-          : align === "right"
-          ? x - txtW - padX
-          : x - txtW / 2 - padX;
+        align === 'left'   ? anchorX                       - PAD_X :
+        align === 'right'  ? anchorX - txtW                - PAD_X :
+                             anchorX - txtW / 2            - PAD_X;
 
+      const boxTop  = anchorYAdj - PAD_Y;
+
+      /* draw rectangle */
       ctx.strokeStyle = stroke;
-      ctx.lineWidth = 2;
-      ctx.strokeRect(boxLeft, y - padY, txtW + padX * 2, txtH + padY * 2);
+      ctx.lineWidth   = 2;
+      ctx.strokeRect(boxLeft, boxTop, txtW + PAD_X * 2, txtH + PAD_Y * 2);
 
-      ctx.fillText(l1, x, y);
-      ctx.fillText(
-        l2,
-        x,
-        y + m1.actualBoundingBoxAscent + m1.actualBoundingBoxDescent + 4
-      );
-    };
-
-    ctx.save();
+      /* render lines */
+      lines.forEach((line, idx) =>
+        ctx.fillText(line,
+                     anchorX,
+                     anchorYAdj + idx * (lineH + lineGap)));
+      ctx.restore();
+    }
 
     /* ── vertical guides (unchanged) ── */
     ctx.strokeStyle = "rgba(96,165,250,.4)";
@@ -75,40 +86,48 @@ const sankeyAnnotations = {
       ctx.stroke();
     });
 
-    /* ── bottom-row boxed labels – now percentage-based ── */
-    const COL1 = 1 / 3; // first guide line (≈ 33 %)
-    const COL2 = 2 / 3; // second guide line (≈ 66 %)
+    /* 1️⃣  bottom labels (centred horizontally) */
+    const COL1 = 1 / 3, COL2 = 2 / 3;
+    drawBox({
+      ctx,
+      lines: ['Crypto-backed tokens'],
+      anchorX: left + width * (COL1 / 2),
+      anchorY: bottom - OUTSET,
+      align:   'center',
+      baseline:'bottom',
+      stroke:  '#f97316'
+    });
 
-    /* mid-point between 0 % and 33 %  →  0.5 * 0.333 = 0.1665 */
-    const xCryptoBacked = left + width * (COL1 / 2);
+    drawBox({
+      ctx,
+      lines: ['Fiat-backed tokens'],
+      anchorX: left + width * ((COL1 + COL2) / 2),
+      anchorY: bottom - OUTSET,
+      align:   'center',
+      baseline:'bottom',
+      stroke:  '#f97316'
+    });
 
-    /* mid-point between 33 % and 66 % → 0.333 + 0.1665 = 0.4995 */
-    const xFiatBacked = left + width * ((COL1 + COL2) / 2);
+    /* 2️⃣  right-hand labels in the gutter */
+    drawBox({
+      ctx,
+      lines: ['Fiat', 'Collateral'],
+      anchorX: right + 30 + OUTSET,
+      anchorY: top + OUTSET,
+      align:   'left',
+      baseline:'top',
+      stroke:  '#f97316'
+    });
 
-    /* ── bottom-row boxed labels (unchanged) ── */
-    const drawBottomBox = (txt: string, x: number, stroke: string) =>
-      drawTwoLineBox([txt, ""], x, bottom - 30, "center", stroke); // y = bottom-30 keeps it outside data
-
-    drawBottomBox("Crypto Backed tokens", xCryptoBacked, "#f97316");
-    drawBottomBox("Fiat Backed tokens", xFiatBacked, "#f97316");
-
-    /* ── NEW: right-side boxed labels in gutter ── */
-    drawTwoLineBox(
-      ["Fiat", "Collateral"],
-      GUTTER_X,
-      top + 10,
-      "left",
-      "#f97316"
-    );
-    drawTwoLineBox(
-      ["Crypto", "Collateral"],
-      GUTTER_X,
-      bottom - 50,
-      "left",
-      "#0ea5e9"
-    );
-
-    ctx.restore();
+    drawBox({
+      ctx,
+      lines: ['Crypto', 'Collateral'],
+      anchorX: right + 30 + OUTSET,
+      anchorY: bottom - OUTSET,
+      align:   'left',
+      baseline:'bottom',
+      stroke:  '#0ea5e9'
+    });
   },
 };
 
@@ -384,7 +403,7 @@ const StablecoinSankey: React.FC = () => {
             style={{
               width: "100%",
               height: "calc(100vh - 150px)",
-              backgroundColor: "#111827", // Dark background
+              backgroundColor: "#111827", 
               borderRadius: "8px",
               padding: "12px",
               position: "relative",
