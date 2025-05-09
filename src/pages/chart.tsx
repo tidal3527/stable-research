@@ -383,7 +383,7 @@ const StablecoinSankey: React.FC = () => {
             className="stablecoin-sankey"
             style={{
               width: "100%",
-              height: "calc(100vh - 250px)",
+              height: "calc(100vh - 150px)",
               backgroundColor: "#111827", // Dark background
               borderRadius: "8px",
               padding: "12px",
