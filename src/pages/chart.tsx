@@ -164,8 +164,8 @@ const sankeyHoverFocus = {
 Chart.register(sankeyHoverFocus);
 
 interface Props {
-  topNote?: string; // optional
-  bottomNote?: string; // optional
+  topNote?: string;
+  bottomNote?: string;
 }
 
 const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
@@ -202,7 +202,6 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
       return nameMap[fullName] || fullName;
     };
 
-    // Color palettes by node kind, not specific names
     const colorPalettes = {
       cryptoToken: [
         "#16a34a", // Green
@@ -242,7 +241,6 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
       cryptoCollateral: 0,
     };
 
-    // Generate color based on node kind, not specific name
     const getNodeColor = (nodeId: string): string => {
       // Return already assigned color if exists
       if (assignedColors[nodeId]) {
@@ -303,13 +301,15 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
 
           priority: data.nodes.reduce((acc, n) => {
             acc[n.id] =
-              n.kind === 'cryptoToken'      ? 1 :   // left-column tokens
-              n.kind === 'fiatToken'        ? 2 :   // middle-column tokens
-              n.kind === 'fiatCollateral'   ? 3 :   // fiat collateral (top of col 2)
-                                                 4; // crypto collateral (bottom of col 2)
+              n.kind === "cryptoToken"
+                ? 1 // left-column tokens
+                : n.kind === "fiatToken"
+                ? 2 // middle-column tokens
+                : n.kind === "fiatCollateral"
+                ? 3 // fiat collateral (top of col 2)
+                : 4; // crypto collateral (bottom of col 2)
             return acc;
           }, {} as Record<string, number>),
-
 
           colorFrom: (c) => getNodeColor(c.dataset.data[c.dataIndex].from),
           colorTo: (c) => getNodeColor(c.dataset.data[c.dataIndex].to),
