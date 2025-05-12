@@ -1,0 +1,57 @@
+#DATE,,
+05/09/2025,,
+,,
+#NODES,,
+id,kind,displayName
+Sky USDS,cryptoToken,USDS
+Ethena USDe,cryptoToken,USDe
+Tether USDT,fiatToken,USDT
+Circle USDC,fiatToken,USDC
+First Digital FDUSD,fiatToken,FDUSD
+PayPal PYUSD,fiatToken,PYUSD
+U.S. Treasury Bills,fiatCollateral,US Treasury Bills
+Overnight Reverse Repurchase Agreements,fiatCollateral,Overnight Repo
+Term Reverse Repurchase Agreements,fiatCollateral,Term Repo
+Money Market Funds,fiatCollateral,Money Markets
+Cash & Bank Deposits,fiatCollateral,Cash/Bank Deposits
+Non-U.S. Treasury Bills,fiatCollateral,Non-US Treasury
+Corporate Bonds,fiatCollateral,Corporate Bonds
+Precious Metals,fiatCollateral,Precious Metals
+Secured Loans,fiatCollateral,Secured Loans
+Other Investments,fiatCollateral,Other Investments
+ETH,cryptoCollateral,
+BTC,cryptoCollateral,
+MKR,cryptoCollateral,
+SOL,cryptoCollateral,
+Spark Lending,cryptoCollateral,Spark Lending
+,,
+#FLOWS,,
+source,target,value
+Sky USDS,US Treasury Bills,1168770000
+Sky USDS,USDC,3920489653
+Sky USDS,ETH,885000000
+Sky USDS,BTC,31000000
+Sky USDS,MKR,214350000
+Sky USDS,Spark Lending,4665282527
+Ethena USDe,USDC,3315700000
+Ethena USDe,ETH,467000000
+Ethena USDe,BTC,840600000
+Ethena USDe,SOL,46700000
+Tether USDT,US Treasury Bills,94471513482
+Tether USDT,Overnight Repo,14410623125
+Tether USDT,Term Repo,3076862521
+Tether USDT,Money Markets,6508747641
+Tether USDT,Cash/Bank Deposits,106506780
+Tether USDT,Non-US Treasury,71004520
+Tether USDT,Corporate Bonds,14370476625
+Tether USDT,Precious Metals,5317075955
+Tether USDT,Secured Loans,8191171066
+Tether USDT,Other Investments,3980621729
+Tether USDT,BTC,7860650128
+Circle USDC,US Treasury Bills,24481830581
+Circle USDC,Overnight Repo,2986300000
+Circle USDC,Cash/Bank Deposits,6930589915
+FDUSD,Overnight Repo,1740592189
+FDUSD,Cash/Bank Deposits,786135870
+PYUSD,Overnight Repo,729955000
+PYUSD,Cash/Bank Deposits,25559000
