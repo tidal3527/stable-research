@@ -399,7 +399,7 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
   }, []);
 
   return (
-    <Layout title="Stablecoin Flow">
+    <Layout title="Stablecoin Tools">
       <main className="min-h-screen bg-gray-900 flex flex-col items-center pb-14 relative">
         {topNote && (
           <h2 className="py-6 tw-m-2 text-center text-2xl font-bold leading-tight mx-auto max-w-3xl">
