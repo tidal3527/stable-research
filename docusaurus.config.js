@@ -112,7 +112,7 @@ const config = {
         items: [
           { to: "/docs", label: "Docs", position: "left"},
           { to: "/contact", label: "Contact", position: "left" },
-        //  { to: "/tools", label: "Tools", position: "left" },
+          { to: "/tools", label: "Tools", position: "left" },
           
           {
             to: "https://github.com/tidal3527/stable-research",
@@ -120,10 +120,10 @@ const config = {
             position: "left",
           },
 
-          {
-            to: "https://miruvor.me/",
-            label: "Blog",
-            position: "left",
+         // {
+           // to: "https://miruvor.me/",
+            // label: "Blog",
+            // position: "left",
           },
           
         ],
