@@ -434,8 +434,8 @@ const StablecoinSankey: React.FC<Props> = ({ topNote, bottomNote }) => {
 export default function ChartPage() {
   return (
     <StablecoinSankey
-      topNote="Stablecoin reserve flows – May 2025"
-      bottomNote="Source: issuer attestations – billions of USD"
+      topNote="Stablecoin Collateral Flow – May 2025"
+      bottomNote="This data reflects stablecoin collateral holdings as of April 15, 2025, and will be updated periodically. For real-time figures or tailored analytics, please contact us. Source: public reserve reports from leading stablecoin issuers representing over 99% of market volume."
     />
   );
 }
