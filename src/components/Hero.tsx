@@ -4,10 +4,13 @@ export default function Hero(): JSX.Element {
   return (
     <section className="tw-pt-16 lg:tw-pt-20 tw-text-center">
 
-      <div className="tw-bg-emerald-700 tw-text-white tw-text-sm tw-font-medium tw-py-2 tw-px-4 tw-w-full tw-text-center">
-        📢 New Tool: Stablecoin Collateral Flow Tracker (April 2025 data now live) —{" "}
-        <a href="/tools" className="tw-underline hover:tw-text-white">Explore</a>
-      </div>
+      <a
+        href="/tools"
+        className="tw-text-white tw-no-underline hover:tw-underline"
+      >
+        📢 New Tool: Stablecoin Collateral Flow Tracker now live
+      </a>
+
 
 
       {/* Branding */}
