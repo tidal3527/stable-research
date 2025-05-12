@@ -443,9 +443,9 @@ export default function ChartPage() {
     
       bottomNote={
         <>
-          This data reflects stablecoin collateral holdings as of April 15, 2025, and will be updated periodically. For real-time figures or tailored analytics, please contact us.
+          This data reflects stablecoin collateral holdings as of April 30, 2025 and will be updated periodically. For real-time figures or tailored analytics, please contact us.
           <br />
-          Source: public reserve reports from leading stablecoin issuers representing over 99% of market volume.
+          Source: Public reserve reports from leading stablecoin issuers representing over 99% of market volume.
         </>
       }
 
