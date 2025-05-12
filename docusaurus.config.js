@@ -124,7 +124,7 @@ const config = {
            // to: "https://miruvor.me/",
             // label: "Blog",
             // position: "left",
-          },
+         // },
           
         ],
       },
