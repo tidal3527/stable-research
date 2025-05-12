@@ -4,13 +4,15 @@ export default function Hero(): JSX.Element {
   return (
     <section className="tw-pt-16 lg:tw-pt-20 tw-text-center">
 
-      <a
+      {/* ✅ Full-width update banner */}
+      <div className="tw-bg-emerald-700 tw-text-white tw-text-sm tw-font-medium tw-py-2 tw-px-4 tw-w-full tw-text-center">
+        <a
         href="/tools"
         className="tw-text-white tw-no-underline hover:tw-underline"
       >
         📢 New Tool: Stablecoin Collateral Flow Tracker now live
       </a>
-
+      </div>
 
 
       {/* Branding */}
