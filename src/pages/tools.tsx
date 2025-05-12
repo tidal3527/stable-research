@@ -443,7 +443,9 @@ export default function ChartPage() {
     
       bottomNote={
         <>
-          This data reflects stablecoin collateral holdings as of April 30, 2025 and will be updated periodically. For real-time figures or tailored analytics, please contact us.
+          This chart visualizes how leading stablecoins are collateralized, mapping flows from each token to its underlying reserve assets. It includes both crypto-backed and fiat-backed models, revealing how capital moves through the system and where it ultimately resides. Even crypto-backed stablecoins often route value into traditional instruments like US Treasury Bills.
+          <br />
+          This data reflects stablecoin collateral holdings as of April 30, 2025 and will be updated periodically. For custom tools, real-time figures or tailored analytics, please contact us.
           <br />
           Source: Public reserve reports from leading stablecoin issuers representing over 99% of market volume.
         </>
