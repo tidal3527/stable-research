@@ -8,27 +8,47 @@ export default function Databases(): JSX.Element {
           <h2 className="tw-text-4xl lg:tw-text-5xl tw-mb-6 tw-font-extrabold">
             Explore
           </h2>
-          <p className="tw-text-xl tw-text-gray-400">
-            Our growing library of resources helps you explore the stablecoin landscape with clarity.
-            Whether you're looking for simple explainers, insights into different protocols, or broader industry trends,
-            explore our{" "}
-            <a
-              href="https://stableresearch.xyz/docs"
-              className="tw-text-emerald-600"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-            knowledge base
-            </a>{" "}
-            to learn more.
-          </p>
 
-         
+          <div className="tw-space-y-4 tw-text-gray-400 tw-text-lg">
+            <p>
+              Our work focuses on two core pillars: tools and research.
+            </p>
+
+            <p>
+              <strong>
+                <a
+                  href="https://stableresearch.xyz/tools"
+                  className="tw-text-emerald-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Tools
+                </a>
+              </strong>{""}
+              : Interactive data-driven dashboards that help you explore stablecoin collateral, markets and ecosystem activity.
+            </p>
+
+            <p>
+              <strong>
+                <a
+                  href="https://stableresearch.xyz/docs-02"
+                  className="tw-text-emerald-600"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Knowledge Base
+                </a>
+              </strong>{""}
+              : A curated collection of (1) technical research and (2) succinct profiles of chains, wallets and other DeFi primitives. 
+            </p>
+
+            <p>
+              Whether you’re analyzing trends or seeking clarity on a specific topic, Stable Research is built to support both exploration and decision-making.
+            </p>
+          </div>
         </div>
-        <div className="tw-p-4">
-          
-          
-        </div>
+
+        <div className="tw-p-4">{/* Optional: Add visuals here */}</div>
       </div>
     </section>
   );

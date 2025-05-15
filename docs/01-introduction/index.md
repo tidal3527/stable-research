@@ -1,4 +1,4 @@
-# Stablecoins 101
+# Introduction
 
 This section introduces stablecoins, their mechanisms and their evolution, explaining how they maintain stability and their growing role in finance. It covers key types, use cases and risks.
 

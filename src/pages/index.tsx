@@ -18,7 +18,6 @@ export default function Home(): JSX.Element {
       <Hero />
       <What />
       <Who />
-      <Explore />
       <Beyond />
     </Layout>
   );

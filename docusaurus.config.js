@@ -71,6 +71,19 @@ const config = {
         };
       },
     }),
+
+  [
+    '@docusaurus/plugin-content-docs',
+    {
+      id: 'docs-02',
+      path: 'docs-02',
+      routeBasePath: 'docs-02',
+      sidebarPath: require.resolve('./sidebars-docs-02.js'),
+      breadcrumbs: false,
+      sidebarCollapsed: true,
+      },
+    ],
+
     // [
     //   "@docusaurus/plugin-content-docs",
     //   {
@@ -110,9 +123,11 @@ const config = {
         // hideOnScroll: true,
         
         items: [
-          { to: "/docs", label: "Docs", position: "left"},
           { to: "/contact", label: "Contact", position: "left" },
           { to: "/tools", label: "Tools", position: "left" },
+          { to: "/docs-02", label: "Knowledge Base", position: "left" },
+          { to: "/docs", label: "Stablecoins 101", position: "left"},
+          
           
           {
             to: "https://github.com/tidal3527/stable-research",
